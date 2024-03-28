@@ -1,0 +1,59 @@
+.container-subtitles {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  background-color: black;
+  color: white;
+}
+
+.section-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100vw;
+}
+
+.container-images {
+  display: flex;
+  width: 27vw;
+  height: 27vh;
+  justify-content: center;
+  margin-bottom: 1vh;
+}
+
+.images {
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 95%;
+}
+
+.images:hover {
+  width: 100%;
+  height: 100%;
+  transition-duration: 0.3s;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+}
+
+.button {
+  background-color: white;
+}
+
+.bg {
+  background-color: rgb(158, 60, 60);
+}
+
+.container-titles {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  background-color: rgb(200, 200, 80);
+  color: white;
+}/*# sourceMappingURL=styles.css.map */

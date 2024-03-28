@@ -1,0 +1,19 @@
+@import 'variables';
+@import 'animations';
+@import 'header';
+@import 'main';
+@import 'footer';
+
+//GENERAL STYLES
+
+.bg{
+    background-color: $main-color;
+}
+
+.container-titles{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    background-color: $bg-titles ;
+    color: $characters-color;
+}
