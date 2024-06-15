@@ -1,73 +1,140 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <script src="./js/codig.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-        <link rel="stylesheet" href="./css/styles.css">
-        <title>Mokepon</title>
-    </head>
+<html lang="en">
 
-    <body class="bg">
-        <header>
-            <div class="container-titles animate__animated animate__bounceInLeft" >
-                <h1>MOKEPON</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Mokepon</title>
+    <script defer src="./js/codigo.js"></script>
+</head>
+
+<body class="bg concert-one-regular">
+    <header>
+        <div class="container-titles animate__animated animate__bounceInLeft">
+            <h1>MOKEPON</h1>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="select-pet" class="section-container">
+            <h2 class="container-subtitles animate__animated animate__bounceInRightr">Pick your mokepon</h2>
+            <div class="pet-cards-container">
+                <div class="container-images">
+                    <input type="radio" name="animal" id="firegod" class="input-mokepon">
+                    <label for="firegod" class="label-border">
+                        <img src="./images/Firegod.jpg" alt="" class="images">
+                        <p class="name-pet">Firegod</p>
+                    </label>
+                </div>
+                <div class="container-images">
+                    <input type="radio" name="animal" id="watermelon" class="input-mokepon" />
+                    <label for="watermelon" class="label-border">
+                        <img src="./images/Watermelon.png" alt="" class="images">
+                        <p class="name-pet">Watermelon</p>
+                    </label>
+
+                </div>
+                <div class="container-images">
+                    <input type="radio" name="animal" id="floraline" class="input-mokepon" />
+                    <label for="floraline" class="label-border">
+                        <img src="./images/Flor.png" alt="" class="images">
+                        <p class="name-pet">Floraline</p>
+                    </label>
+                </div>
+                <div class="container-images">
+                    <input type="radio" name="animal" id="thundercat" class="input-mokepon" />
+                    <label for="thundercat" class="label-border">
+                        <img src="./images/Thunder.png" alt="" class="images">
+                        <p class="name-pet">Thundercat</p>
+                    </label>
+                </div>
+                <div class="container-images">
+                    <input type="radio" name="animal" id="tucaferreti" class="input-mokepon" />
+                    <label for="tucaferreti" class="label-border">
+                        <img src="./images/Tucaferreti.webp" alt="" class="images">
+                        <p class="name-pet">Tucaferreti</p>
+                    </label>
+                </div>
+                <div class="container-images">
+                    <input type="radio" name="animal" id="jachibombo" class="input-mokepon" />
+                    <label for="jachibombo" class="label-border">
+                        <img src="./images/Jachibombo.webp" alt="" class="images">
+                        <p class="name-pet">Jachibombo</p>
+                    </label>
+                </div>
             </div>
-        </header>
 
-        <main>
-            <h2 class="container-subtitles animate__animated animate__bounceInRight">Choose carefully</h2>
-
-            <section id = "select-pet" class="section-container">
-
-                <div class="container-images">
-                    <!-- <input type="radio" name="animal" id="firegod">
-                    <label for="firegod">Firegod</label><br>-->
-                    <img src="./images/Firegod.jpg" alt="" class="images">
-                </div>
-                <div class="container-images">
-                    <!--<input type="radio" name="animal" id="watermelon"/>
-                    <label for="watermelon">Watermelon</label><br>-->
-                    <img src="./images/Watermelon.png" alt="" class="images">
-
-                </div>
-                <div class="container-images">
-                    <!--<input type="radio" name="animal" id="floraline"/>
-                    <label for="floraline">Floraline</label><br>-->
-                    <img src="./images/Flor.png" alt="" class="images">
-                </div>
-                <div class="container-images">
-                    <!--<input type="radio" name="animal" id="langostin"/>
-                    <label for="langostin">Langostin</label><br>-->
-                    <img src="./images/Langostin.png" alt="" class="images">
-
-                </div>
-                <div class="container-images">
-                    <!--<input type="radio" name="animal" id="tucaferreti"/>
-                <label for="tucaferreti">TucaFerreti</label><br>-->
-                <img src="./images/Tucaferreti.jpg" alt="" class="images">
-                </div>
-                <div class="container-images">
-                    <!--<input type="radio" name="animal" id="jachibombo"/>
-                    <label for="jachibombo">Jachibombo</label><br>-->
-                    <img src="./images/Jachibombo.png" alt="" class="images">
-                </div>
-            </section>
-    
             <div class="container-button animate__animated animate__bounceInDown">
-                <!--<button id="button-Pet">Select</button>-->
-                <a href="./pages/battle.html" class="button">Select</a>
+                <button id="button-pet" class="button-select-mokepon concert-one-regular">Continue</button>
             </div>
-    
+        </section>
+
+
+        <section id="select-attack">
+            <h2 class="container-subtitles animate__animated animate__bounceInRight">Select your attack</h2>
+            <div class="container-buttons-attack">
+                <button id="button-fire" class="button-attack concert-one-regular">Fireball 🔥</button>
+                <button id="button-water" class="button-attack concert-one-regular">Waterball 💧</button>
+                <button id="button-plantae" class="button-attack concert-one-regular">Natureball 🍃</button>
+                <button id="button-electricity" class="button-attack concert-one-regular">Electroball ⚡</button>
+                <button id="button-wind" class="button-attack concert-one-regular">Windball 💨</button>
+                <button id="button-plasma" class="button-attack concert-one-regular">Plasmaball 🌌</button>
+            </div>
+
+            <div>
+                <div id="messages" class="container-subtitles animate__animated animate__bounceInRight">
+                    <p id="result-of-fight">Good luck!</p>
+
+                    <section id="play-again">
+                        <button id="button-again"  class="concert-one-regular">Restart game</button>
+                    </section>
+                </div>
+            </div>
+
+            <div id="check-life" class="combat-representation-container">
+                <div class="combat-representation">
+                    <p id="friend-lifes">❤️❤️❤️</p>
+                    <div class="combat-representation-image-container">
+                        <img src="./images/Firegod.jpg" alt="Image of your pet" class="combat-representation-image" id="selected-character-image">
+                    </div>
+                    <p id="friend-pet">Your pet</p>
+
+                </div>
+
+                <p class="combat-vs">
+                    VS
+                </p>
+
+                <div class="combat-representation">
+                    <p id="enemy-lifes">❤️❤️❤️</p>
+                    <div class="combat-representation-image-container">
+                        <img src="./images/Jachibombo.webp" alt="Image of enemys pet" class="combat-representation-image" id="selected-enemy-character-image">
+                    </div>
+                    <p id="enemy-pet">Enemy pet</p>
+                </div>
+            </div>
+
+            <div class="combat-attacks-historial">
+                <div id="player-Attack-div"></div>
+                <div id="enemy-Attack-div"></div>
+            </div>
+
             
-        </main>
 
-        <footer>
 
-        </footer>
-        
-        
+        </section>
 
-       
-    </body>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+
 </html>

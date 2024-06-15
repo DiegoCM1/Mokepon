@@ -1,0 +1,36 @@
+@import 'variables';
+@import 'animations';
+@import 'header';
+@import 'main';
+@import 'footer';
+
+//GENERAL STYLES
+
+.bg{
+    /*background: radial-gradient(circle at bottom, yellow, orange, red);
+    border-radius: 50%;*/
+    background: radial-gradient(circle at bottom, rgb(255, 0, 0), rgb(149, 1, 1), rgb(61, 0, 0));
+    border-radius: 50%;
+}
+
+.background-image {
+    background-image: url('../images/backgroundImg.webp');
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
+.container-titles{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    background-color: $bg-titles ;
+    color: $characters-color;
+}
+
+.concert-one-regular {
+    font-family: "Concert One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  

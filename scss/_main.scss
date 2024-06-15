@@ -1,8 +1,10 @@
+//INDEX STARTS
+
 .container-subtitles {
   display: flex;
   justify-content: center;
   width: 100vw;
-  color: white;
+  color: $characters-color;
 }
 
 .section-container {
@@ -13,7 +15,7 @@
   width: 100vw;
 }
 
-.pet-cards-container {
+.pet-cards-container{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -32,22 +34,22 @@
   border: solid 1px black;
 }
 
-.container-images:hover {
-  background-color: black;
-  color: white;
-  transition-duration: 0.3s;
+.container-images:hover{
+    background-color: black;
+    color: white;
+    transition-duration: 0.3s;
 }
 
-.input-mokepon {
+.input-mokepon{
   display: none;
 }
 
-input + label {
+input + label{
   width: 100%;
   height: 100%;
 }
 
-input:checked + label {
+input:checked + label{
   background-color: black;
   color: yellow;
   border: yellow 4px solid;
@@ -102,6 +104,8 @@ input:checked + label {
   color: red;
 }
 
+
+//Select attack starts
 #select-attack {
   display: flex;
   flex-direction: column;
@@ -109,7 +113,7 @@ input:checked + label {
   align-items: center;
 }
 
-.container-buttons-attack {
+.container-buttons-attack{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -125,11 +129,14 @@ input:checked + label {
   color: white;
 }
 
-.button-attack:hover {
+.button-attack:hover{
   color: rgb(61, 0, 0);
 }
+//Select attack ends
 
-#messages {
+//Messages starts
+
+#messages{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -142,21 +149,29 @@ input:checked + label {
   height: 15vh;
 }
 
-#button-again {
+//Messages ends
+
+
+//Restart starts
+
+#button-again{
   border: transparent;
-  color: rgb(149, 1, 1);
+  color:rgb(149, 1, 1);
   background-color: transparent;
 }
 
-#button-again:hover {
+#button-again:hover{
   color: rgb(255, 0, 0);
 }
 
-#check-life {
+//Restart ends
+
+//Check life starts
+#check-life{
   display: grid;
 }
 
-.combat-representation-container {
+.combat-representation-container{
   margin-top: 5vh;
   display: grid;
   grid-template-columns: 40vw 10vw 40vw;
@@ -164,7 +179,7 @@ input:checked + label {
   grid-gap: 10px;
 }
 
-.combat-representation {
+.combat-representation{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,73 +190,49 @@ input:checked + label {
   color: white;
 }
 
-.combat-vs {
+.combat-vs{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   color: yellow;
-  font-size: xx-large;
+  font-size:xx-large;
 }
 
-.combat-representation-image-container {
+.combat-representation-image-container{
   width: 30vw;
   height: 20vh;
 }
 
-.combat-representation-image {
+
+.combat-representation-image{
   width: 100%;
   height: 100%;
 }
+//Check life ends
 
-.combat-attacks-historial {
+
+//Combat attack historial starts
+.combat-attacks-historial{
   margin-top: 5vh;
   display: grid;
-  grid-template-columns: 40vw 40vw;
+  grid-template-columns: 40vw  40vw;
   text-align: center;
   grid-gap: 10px;
 }
 
-#player-Attack-div {
+#player-Attack-div{
   border: 1px solid yellow;
   border-radius: 10px;
   background-color: rgb(149, 1, 1);
   color: white;
 }
 
-#enemy-Attack-div {
+#enemy-Attack-div{
   border: 1px solid yellow;
   border-radius: 10px;
   background-color: rgb(149, 1, 1);
   color: white;
 }
+//Combat attack historial ends
 
-.bg {
-  /*background: radial-gradient(circle at bottom, yellow, orange, red);
-  border-radius: 50%;*/
-  background: radial-gradient(circle at bottom, rgb(255, 0, 0), rgb(149, 1, 1), rgb(61, 0, 0));
-  border-radius: 50%;
-}
-
-.background-image {
-  background-image: url("../images/backgroundImg.webp");
-  background-size: cover; /* Ensures the image covers the entire element */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-}
-
-.container-titles {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  background-color: black;
-  color: white;
-}
-
-.concert-one-regular {
-  font-family: "Concert One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/*# sourceMappingURL=styles.css.map */
