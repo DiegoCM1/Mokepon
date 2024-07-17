@@ -1,73 +1,200 @@
-//Second part STARTS
+//Global Variables
+let playerAttack = "";
+let enemyAttack = "";
+const friendPetMovement = document.getElementById("friend-pet-movement");
+const enemyPetMovement = document.getElementById("enemy-pet-movement");
+let victories = 0;
+let loses = 0;
+let result = "";
+let friendLifes = 3;
+let enemyLifes = 3;
+//Sections to hide and show
+const sectionLifes = document.getElementById("check-life");
+const sectionMessages = document.getElementById("messages");
+const sectionRestart = document.getElementById("play-again");
+const sectionSelectAttack = document.getElementById("select-attack");
+//Buttons for attacks
+const buttonPet = document.getElementById("button-pet");
+const buttonFire = document.getElementById("button-fire");
+const buttonWater = document.getElementById("button-water");
+const buttonPlantae = document.getElementById("button-plantae");
+const buttonElectricity = document.getElementById("button-electricity");
+const buttonWind = document.getElementById("button-wind");
+const buttonPlasma = document.getElementById("button-plasma");
+//Restart the game
+const buttonRestart = document.getElementById("button-again");
+//Characters
+let selectedPet = "";
+const selectedCharacterImage = document.getElementById(
+  "selected-character-image"
+);
+const friendPet = document.getElementById("friend-pet");
+//Select enemy pet
+const sectionSelectPet = document.getElementById("select-pet");
+const enemyPet = document.getElementById("enemy-pet");
+const selectedEnemyCharacterImage = document.getElementById(
+  "selected-enemy-character-image"
+);
+//Marcador
+const spanFriendLifes = document.getElementById("friend-lifes");
+const spanEnemyLifes = document.getElementById("enemy-lifes");
+//Add message
+const messagesSection = document.getElementById("result-of-fight");
+const playerAttackDiv = document.getElementById("player-Attack-div");
+const enemyAttackDiv = document.getElementById("enemy-Attack-div");
+//Mokepons array
+let mokeponsOption;
+let inputFiregod
+let inputWatermelon
+let inputFloraline 
+let inputThundercat 
+let inputTucaferreti 
+let inputJachibombo
+const petCardsContainer = document.getElementById('pet-cards-container')
+
+//Array of mokepons
+let mokepons = [];
+
+//Creationg of classes
+class Mokepon {
+  constructor(name, photo, life) {
+    this.name = name;
+    this.photo = photo;
+    this.life = life;
+    this.attacks = [];
+  }
+}
+
+//Creating objects using the class
+let firegod = new Mokepon("Firegod", "./images/Firegod.jpg", 3);
+let thundercat = new Mokepon("Thundercat", "./images/Thunder.png", 3);
+let watermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3);
+let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
+let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
+let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
+
+//Adding new attacks to the property depending on the mokepong
+firegod.attacks.push(
+  { name: "🔥", id: "button-fire" },
+  { name: "🔥", id: "button-fire" },
+  { name: "🔥", id: "button-fire" },
+  { name: "💧", id: "button-water" },
+  { name: "🍃", id: "button-plantae" }
+);
+
+thundercat.attacks.push(
+  { name: "⚡", id: "button-electricity" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "💨", id: "button-wind" },
+  { name: "🌌", id: "button-plasma" }
+);
+
+watermelon.attacks.push(
+  { name: "💧", id: "button-fire" },
+  { name: "💧", id: "button-fire" },
+  { name: "💧", id: "button-fire" },
+  { name: "🔥", id: "button-water" },
+  { name: "🍃", id: "button-plantae" }
+);
+
+tucaferreti.attacks.push(
+  { name: "💨", id: "button-wind" },
+  { name: "💨", id: "button-wind" },
+  { name: "💨", id: "button-wind" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "🌌", id: "button-plasma" }
+);
+
+floraline.attacks.push(
+  { name: "🍃", id: "button-fire" },
+  { name: "🍃", id: "button-fire" },
+  { name: "🍃", id: "button-fire" },
+  { name: "💧", id: "button-water" },
+  { name: "🔥", id: "button-plantae" }
+);
+
+jachibombo.attacks.push(
+  { name: "🌌", id: "button-plasma" },
+  { name: "🌌", id: "button-plasma" },
+  { name: "🌌", id: "button-plasma" },
+  { name: "💨", id: "button-wind" },
+  { name: "⚡", id: "button-electricity" }
+);
+
+//Adding mokepons to the array 'mokepons'
+mokepons.push(
+  firegod,
+  watermelon,
+  floraline,
+  thundercat,
+  tucaferreti,
+  jachibombo
+);
+
+console.log(mokepons);
+
 //Functions
 function initiateGame() {
-    //Hiding sections in HTML
+  //Hiding sections in HTML
+  sectionLifes.style.display = "none";
+  sectionMessages.style.display = "none";
+  sectionRestart.style.display = "none";
+  sectionSelectAttack.style.display = "none";
 
-    let sectionLifes = document.getElementById('check-life')
-    sectionLifes.style.display = 'none'
-    let sectionMessages = document.getElementById('messages')
-    sectionMessages.style.display = 'none'
-    let sectionRestart = document.getElementById('play-again')
-    sectionRestart.style.display = 'none'
-    let sectionSelectAttack = document.getElementById('select-attack')
-    sectionSelectAttack.style.display = 'none'
-    
+  //Array of mokepons
+  mokepons.forEach((mokepon) => {
+    mokeponsOption = `
+    <div class="container-images">
+    <input type="radio" name="animal" id=${mokepon.name} class="input-mokepon">
+    <label for=${mokepon.name} class="label-border">
+        <img src=${mokepon.photo} alt=${mokepon.name} class="images">
+        <p class="name-pet">${mokepon.name}</p>
+    </label>
+    </div>
+    `
+    petCardsContainer.innerHTML += mokeponsOption;
 
-    //Game starts
-  let buttonPet = document.getElementById("button-pet");
-  buttonPet.addEventListener("click", selectPet); //Select our pet and enemy pet
+    inputFiregod = document.getElementById("Firegod");
+    inputWatermelon = document.getElementById("Watermelon");
+    inputFloraline = document.getElementById("Floraline");
+    inputThundercat = document.getElementById("Thundercat");
+    inputTucaferreti = document.getElementById("Tucaferreti");
+    inputJachibombo = document.getElementById("Jachibombo");
+  });
 
-  let buttonFire = document.getElementById("button-fire");
+  //Select our pet and enemy pet
+  buttonPet.addEventListener("click", selectPet);
+
   buttonFire.addEventListener("click", () => {
     attackFire();
     selectEnemyAttack();
   });
-  let buttonWater = document.getElementById("button-water");
   buttonWater.addEventListener("click", () => {
     attackWater();
     selectEnemyAttack();
   });
-  let buttonPlantae = document.getElementById("button-plantae");
   buttonPlantae.addEventListener("click", () => {
     attackPlantae();
     selectEnemyAttack();
   });
-  let buttonElectricity = document.getElementById("button-electricity");
   buttonElectricity.addEventListener("click", () => {
     attackElectricity();
     selectEnemyAttack();
   });
-  let buttonWind = document.getElementById("button-wind");
   buttonWind.addEventListener("click", () => {
     attackWind();
     selectEnemyAttack();
   });
-  let buttonPlasma = document.getElementById("button-plasma");
   buttonPlasma.addEventListener("click", () => {
     attackPlasma();
     selectEnemyAttack();
   });
 
-  let buttonRestart = document.getElementById("button-again");
-
   buttonRestart.addEventListener("click", restartGame);
 }
 
 function selectPet() {
-  //Choosing our pet
-  let inputFiregod = document.getElementById("firegod");
-  let inputWatermelon = document.getElementById("watermelon");
-  let inputFloraline = document.getElementById("floraline");
-  let inputThundercat = document.getElementById("thundercat");
-  let inputTucaferreti = document.getElementById("tucaferreti");
-  let inputJachibombo = document.getElementById("jachibombo");
-  let selectedPet = "";
-
-  // Elements to display selected character
-  let selectedCharacterImage = document.getElementById("selected-character-image");
-  let friendPet = document.getElementById("friend-pet");
-
-
   if (inputFiregod.checked) {
     selectedPet = "Firegod 🔥";
     friendPet.innerHTML = "Firegod";
@@ -100,7 +227,7 @@ function selectPet() {
     selectEnemyPet();
   } else {
     selectedPet = "to be a loser 👎";
-    alert('You selected ' + selectedPet)
+    alert("You selected " + selectedPet);
   }
 }
 
@@ -110,27 +237,16 @@ function aleatorio(max, min) {
 }
 
 function selectEnemyPet() {
-    //Showing back the sections
-    let sectionSelectAttack = document.getElementById('select-attack')
-    sectionSelectAttack.style.display = 'flex'
-    let sectionLifes = document.getElementById('check-life')
-    sectionLifes.style.display = 'grid'
-    let sectionMessages = document.getElementById('messages')
-    sectionMessages.style.display = 'flex'
-    
-    //Hiding sections
-    let sectionRestart = document.getElementById('play-again')
-    sectionRestart.style.display = 'none'
-    let sectionSelectPet = document.getElementById('select-pet')
-    sectionSelectPet.style.display = 'none'
-
+  //Showing back the sections
+  sectionSelectAttack.style.display = "flex";
+  sectionLifes.style.display = "grid";
+  sectionMessages.style.display = "flex";
+  //Hiding sections
+  sectionRestart.style.display = "none";
+  sectionSelectPet.style.display = "none";
   //Enemy selects pet
   let aleatorySelection = aleatorio(6, 1);
   let enemySelectedPet = "";
-  let enemyPet = document.getElementById("enemy-pet");
-  let selectedEnemyCharacterImage = document.getElementById("selected-enemy-character-image");
-
-
 
   if (aleatorySelection === 1) {
     enemySelectedPet = "Firegod 🔥";
@@ -182,9 +298,6 @@ function selectEnemyAttack() {
 }
 
 function marcador() {
-  let spanFriendLifes = document.getElementById("friend-lifes");
-  let spanEnemyLifes = document.getElementById("enemy-lifes");
-
   if (enemyAttack == playerAttack) {
     result = "You draw ⚔️";
   } else if (
@@ -219,39 +332,28 @@ function marcador() {
     spanFriendLifes.innerHTML = friendLifes;
   }
 
-  if(friendLifes == 3){
-    spanFriendLifes.innerHTML = '❤️❤️❤️';
-  }else if(friendLifes == 2){
-    spanFriendLifes.innerHTML = '❤️❤️🖤';
-  }else if(friendLifes == 1){
-    spanFriendLifes.innerHTML = '❤️🖤🖤';
-  }else{
-    spanFriendLifes.innerHTML = '🖤🖤🖤';
+  if (friendLifes == 3) {
+    spanFriendLifes.innerHTML = "❤️❤️❤️";
+  } else if (friendLifes == 2) {
+    spanFriendLifes.innerHTML = "❤️❤️🖤";
+  } else if (friendLifes == 1) {
+    spanFriendLifes.innerHTML = "❤️🖤🖤";
+  } else {
+    spanFriendLifes.innerHTML = "🖤🖤🖤";
   }
 
-  if(enemyLifes == 3){
-    spanEnemyLifes.innerHTML = '❤️❤️❤️';
-  }else if(enemyLifes == 2){
-    spanEnemyLifes.innerHTML = '❤️❤️🖤';
-  }else if(enemyLifes == 1){
-    spanEnemyLifes.innerHTML = '❤️🖤🖤';
-  }else{
-    spanEnemyLifes.innerHTML = '🖤🖤🖤';
+  if (enemyLifes == 3) {
+    spanEnemyLifes.innerHTML = "❤️❤️❤️";
+  } else if (enemyLifes == 2) {
+    spanEnemyLifes.innerHTML = "❤️❤️🖤";
+  } else if (enemyLifes == 1) {
+    spanEnemyLifes.innerHTML = "❤️🖤🖤";
+  } else {
+    spanEnemyLifes.innerHTML = "🖤🖤🖤";
   }
 
   return result;
 }
-
-//Global Variables
-let playerAttack = "";
-let enemyAttack = "";
-let friendPetMovement = document.getElementById("friend-pet-movement");
-let enemyPetMovement = document.getElementById("enemy-pet-movement");
-let victories = 0;
-let loses = 0;
-let result = "";
-let friendLifes = 3;
-let enemyLifes = 3;
 
 //Available attacks
 function attackFire() {
@@ -280,99 +382,55 @@ function attackPlasma() {
 
 function addMessage() {
   //Show historial of attacks
-
-/*   let paragraph = document.createElement("p"); //Name of element to create
- */  
-
-  let messagesSection = document.getElementById("result-of-fight");
-  let playerAttackDiv = document.getElementById("player-Attack-div");
-  let enemyAttackDiv = document.getElementById("enemy-Attack-div");
-
   let newPlayerAttack = document.createElement("p");
   let newEnemyAttack = document.createElement("p");
-
-  newPlayerAttack.innerHTML = playerAttack
-  newEnemyAttack.innerHTML =  enemyAttack
-
+  //Show attack made by player
+  newPlayerAttack.innerHTML = playerAttack;
+  newEnemyAttack.innerHTML = enemyAttack;
+  //Insert message of attacks
   playerAttackDiv.appendChild(newPlayerAttack);
   enemyAttackDiv.appendChild(newEnemyAttack);
 
-
-  if (enemyLifes == 0) { //Conditional starts
-    messagesSection.innerHTML = 'You won the battle '
-
-    //Disabling pet selection
-    let inputFiregod = document.getElementById("firegod");
-    let inputWatermelon = document.getElementById("watermelon");
-    let inputFloraline = document.getElementById("floraline");
-    let inputThundercat = document.getElementById("thundercat");
-    let inputTucaferreti = document.getElementById("tucaferreti");
-    let inputJachibombo = document.getElementById("jachibombo");
-
+  if (enemyLifes == 0) {
+    //Message of victory
+    messagesSection.innerHTML = "You won the battle ";
+    //Disabling enemy attacks
     inputFiregod.disabled = true;
     inputWatermelon.disabled = true;
     inputFloraline.disabled = true;
     inputThundercat.disabled = true;
     inputTucaferreti.disabled = true;
     inputJachibombo.disabled = true;
-
     //Disabling attack buttons
-    let buttonFire = document.getElementById("button-fire");
     buttonFire.disabled = true;
-    let buttonWater = document.getElementById("button-water");
     buttonWater.disabled = true;
-    let buttonPlantae = document.getElementById("button-plantae");
     buttonPlantae.disabled = true;
-    let buttonElectricity = document.getElementById("button-electricity");
     buttonElectricity.disabled = true;
-    let buttonWind = document.getElementById("button-wind");
     buttonWind.disabled = true;
-    let buttonPlasma = document.getElementById("button-plasma");
     buttonPlasma.disabled = true;
-
-    //Show section to restart game 
-    let sectionRestart = document.getElementById('play-again')
-    sectionRestart.style.display = 'flex'
-
+    //Show section to restart game
+    sectionRestart.style.display = "flex";
   } else if (friendLifes == 0) {
-    messagesSection.innerHTML = 'You lost the battle ☠️'
-
-
+    //Message of defeat
+    messagesSection.innerHTML = "You lost the battle ☠️";
     //Disabling pet selection
-    let inputFiregod = document.getElementById("firegod");
-    let inputWatermelon = document.getElementById("watermelon");
-    let inputFloraline = document.getElementById("floraline");
-    let inputThundercat = document.getElementById("thundercat");
-    let inputTucaferreti = document.getElementById("tucaferreti");
-    let inputJachibombo = document.getElementById("jachibombo");
-
     inputFiregod.disabled = true;
     inputWatermelon.disabled = true;
     inputFloraline.disabled = true;
     inputThundercat.disabled = true;
     inputTucaferreti.disabled = true;
     inputJachibombo.disabled = true;
-
     //Disabling attack buttons
-    let buttonFire = document.getElementById("button-fire");
     buttonFire.disabled = true;
-    let buttonWater = document.getElementById("button-water");
     buttonWater.disabled = true;
-    let buttonPlantae = document.getElementById("button-plantae");
     buttonPlantae.disabled = true;
-    let buttonElectricity = document.getElementById("button-electricity");
     buttonElectricity.disabled = true;
-    let buttonWind = document.getElementById("button-wind");
     buttonWind.disabled = true;
-    let buttonPlasma = document.getElementById("button-plasma");
     buttonPlasma.disabled = true;
-
-    //Show section to restart game 
-    let sectionRestart = document.getElementById('play-again')
-    sectionRestart.style.display = 'flex'
-    
+    //Show section to restart game
+    sectionRestart.style.display = "flex";
   } else if (enemyLifes > 0 && friendLifes > 0) {
-    messagesSection.innerHTML = result
+    messagesSection.innerHTML = result;
   }
 }
 
