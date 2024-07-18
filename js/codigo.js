@@ -73,7 +73,7 @@ let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
 let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
 
-//Adding new attacks to the property depending on the mokepong
+//Adding new attacks to the property depending on the mokepon
 firegod.attacks.push(
   { name: "🔥", id: "button-fire" },
   { name: "🔥", id: "button-fire" },
@@ -131,8 +131,6 @@ mokepons.push(
   tucaferreti,
   jachibombo
 );
-
-console.log(mokepons);
 
 //Functions
 function initiateGame() {
@@ -197,32 +195,32 @@ function initiateGame() {
 function selectPet() {
   if (inputFiregod.checked) {
     selectedPet = "Firegod 🔥";
-    friendPet.innerHTML = "Firegod";
+    friendPet.innerHTML = inputFiregod.id
     selectedCharacterImage.src = "./images/Firegod.jpg";
     selectEnemyPet();
   } else if (inputWatermelon.checked) {
     selectedPet = "Watermelon 💦";
-    friendPet.innerHTML = "Watermelon";
+    friendPet.innerHTML = inputWatermelon.id
     selectedCharacterImage.src = "./images/Watermelon.png";
     selectEnemyPet();
   } else if (inputFloraline.checked) {
     selectedPet = "Floraline 🌲";
-    friendPet.innerHTML = "Floraline";
+    friendPet.innerHTML = inputFloraline.id
     selectedCharacterImage.src = "./images/Flor.png";
     selectEnemyPet();
   } else if (inputThundercat.checked) {
     selectedPet = "Thundercat ⚡";
-    friendPet.innerHTML = "Thundercat";
+    friendPet.innerHTML = inputThundercat.id
     selectedCharacterImage.src = "./images/Thunder.png";
     selectEnemyPet();
   } else if (inputTucaferreti.checked) {
     selectedPet = "Tucaferreti 💨";
-    friendPet.innerHTML = "Tucaferreti";
+    friendPet.innerHTML = inputTucaferreti.id
     selectedCharacterImage.src = "./images/Tucaferreti.webp";
     selectEnemyPet();
   } else if (inputJachibombo.checked) {
     selectedPet = "Jachibombo 🌌";
-    friendPet.innerHTML = "Jachibombo";
+    friendPet.innerHTML = inputJachibombo.id
     selectedCharacterImage.src = "./images/Jachibombo.webp";
     selectEnemyPet();
   } else {
@@ -245,34 +243,11 @@ function selectEnemyPet() {
   sectionRestart.style.display = "none";
   sectionSelectPet.style.display = "none";
   //Enemy selects pet
-  let aleatorySelection = aleatorio(6, 1);
-  let enemySelectedPet = "";
+  let aleatorySelection = aleatorio(mokepons.length -1, 0);
 
-  if (aleatorySelection === 1) {
-    enemySelectedPet = "Firegod 🔥";
-    enemyPet.innerHTML = "Firegod";
-    selectedEnemyCharacterImage.src = "./images/Firegod.jpg";
-  } else if (aleatorySelection === 2) {
-    enemySelectedPet = "Watermelon 💦";
-    enemyPet.innerHTML = "Watermelon";
-    selectedEnemyCharacterImage.src = "./images/Watermelon.png";
-  } else if (aleatorySelection === 3) {
-    enemySelectedPet = "Floraline 🌲";
-    enemyPet.innerHTML = "Floraline";
-    selectedEnemyCharacterImage.src = "./images/Flor.png";
-  } else if (aleatorySelection === 4) {
-    enemySelectedPet = "Thundercat ⚡";
-    enemyPet.innerHTML = "Thundercat";
-    selectedEnemyCharacterImage.src = "./images/Thunder.png";
-  } else if (aleatorySelection === 5) {
-    enemySelectedPet = "Tucaferreti 💨";
-    enemyPet.innerHTML = "Tucaferreti";
-    selectedEnemyCharacterImage.src = "./images/Tucaferreti.webp";
-  } else if (aleatorySelection === 6) {
-    enemySelectedPet = "Jachibombo 🌌";
-    enemyPet.innerHTML = "Jachibombo";
-    selectedEnemyCharacterImage.src = "./images/Jachibombo.webp";
-  }
+  enemyPet.innerHTML = mokepons[aleatorySelection].name
+  selectedEnemyCharacterImage.src = mokepons[aleatorySelection].photo
+
 }
 
 function selectEnemyAttack() {
