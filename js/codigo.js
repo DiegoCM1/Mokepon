@@ -24,7 +24,6 @@ const buttonPlasma = document.getElementById("button-plasma");
 //Restart the game
 const buttonRestart = document.getElementById("button-again");
 //Characters
-let selectedPet = "";
 const selectedCharacterImage = document.getElementById(
   "selected-character-image"
 );
@@ -50,12 +49,20 @@ let inputFloraline
 let inputThundercat 
 let inputTucaferreti 
 let inputJachibombo
+let selectedPet
 const petCardsContainer = document.getElementById('pet-cards-container')
 
 //Array of mokepons
 let mokepons = [];
 
-//Creationg of classes
+//Attacks of mokepons
+let containerButtonsAttack = document.getElementById("container-buttons-attack")
+let attackOption
+let attacks = "This is a value"
+let playerAttackName = "Attack Name Default"
+
+
+//Creationg of a class for mokepons array
 class Mokepon {
   constructor(name, photo, life) {
     this.name = name;
@@ -161,6 +168,7 @@ function initiateGame() {
     inputJachibombo = document.getElementById("Jachibombo");
   });
 
+
   //Select our pet and enemy pet
   buttonPet.addEventListener("click", selectPet);
 
@@ -194,44 +202,66 @@ function initiateGame() {
 
 function selectPet() {
   if (inputFiregod.checked) {
-    selectedPet = "Firegod 🔥";
     friendPet.innerHTML = inputFiregod.id
     selectedCharacterImage.src = "./images/Firegod.jpg";
+    selectedPet = inputFiregod.id
     selectEnemyPet();
   } else if (inputWatermelon.checked) {
-    selectedPet = "Watermelon 💦";
     friendPet.innerHTML = inputWatermelon.id
     selectedCharacterImage.src = "./images/Watermelon.png";
+    selectedPet = inputWatermelon.id
     selectEnemyPet();
   } else if (inputFloraline.checked) {
-    selectedPet = "Floraline 🌲";
     friendPet.innerHTML = inputFloraline.id
     selectedCharacterImage.src = "./images/Flor.png";
+    selectedPet = inputFloraline.id
     selectEnemyPet();
   } else if (inputThundercat.checked) {
-    selectedPet = "Thundercat ⚡";
     friendPet.innerHTML = inputThundercat.id
     selectedCharacterImage.src = "./images/Thunder.png";
+    selectedPet = inputThundercat.id
     selectEnemyPet();
   } else if (inputTucaferreti.checked) {
-    selectedPet = "Tucaferreti 💨";
     friendPet.innerHTML = inputTucaferreti.id
     selectedCharacterImage.src = "./images/Tucaferreti.webp";
+    selectedPet = inputTucaferreti.id
     selectEnemyPet();
   } else if (inputJachibombo.checked) {
-    selectedPet = "Jachibombo 🌌";
     friendPet.innerHTML = inputJachibombo.id
     selectedCharacterImage.src = "./images/Jachibombo.webp";
+    selectedPet = inputJachibombo.id
     selectEnemyPet();
   } else {
-    selectedPet = "to be a loser 👎";
-    alert("You selected " + selectedPet);
+    alert("You selected to be a loser 👎");
   }
+
+  extractAttacks(selectedPet)
 }
 
-function aleatorio(max, min) {
-  //Get aleatory number
-  return Math.floor(Math.random() * (max - min + 1) + 1);
+function extractAttacks(selectedPet){
+  for (let i = 0; i < mokepons.length; i++) {
+    if(selectedPet === mokepons[i].name) {
+      attacks = mokepons[i].attacks
+    }  
+  }
+  showAttacks(attacks)
+}
+
+function showAttacks(attacks){
+  attacks.forEach((attack) => {
+    attackOption = `
+  <button id=${attack.id} class="button-attack concert-one-regular">${attack.name}</button>
+  `
+  containerButtonsAttack.innerHTML += attackOption;
+  });
+}
+
+
+
+
+
+function aleatorio(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 function selectEnemyPet() {
@@ -247,7 +277,6 @@ function selectEnemyPet() {
 
   enemyPet.innerHTML = mokepons[aleatorySelection].name
   selectedEnemyCharacterImage.src = mokepons[aleatorySelection].photo
-
 }
 
 function selectEnemyAttack() {
