@@ -107,6 +107,7 @@ input:checked + label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 .container-buttons-attack {
@@ -114,6 +115,7 @@ input:checked + label {
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: 2vh;
 }
 
 .button-attack {
