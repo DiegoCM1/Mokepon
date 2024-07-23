@@ -1,5 +1,4 @@
 //Global Variables
-let playerAttack
 let selectedAttack
 let enemyAttack
 let selectedEnemyAttack
@@ -56,7 +55,7 @@ let buttonElectricity
 let buttonWind
 let buttonPlasma
 let attackButtons = []
-let attackOfPlayer = []
+let playerAttack = []
 
 //Array of mokepons
 let mokepons = [];
@@ -185,37 +184,32 @@ function selectPet() {
     friendPet.innerHTML = inputFiregod.id
     selectedCharacterImage.src = "./images/Firegod.jpg";
     selectedPet = inputFiregod.id
-    selectEnemyPet();
   } else if (inputWatermelon.checked) {
     friendPet.innerHTML = inputWatermelon.id
     selectedCharacterImage.src = "./images/Watermelon.png";
     selectedPet = inputWatermelon.id
-    selectEnemyPet();
   } else if (inputFloraline.checked) {
     friendPet.innerHTML = inputFloraline.id
     selectedCharacterImage.src = "./images/Flor.png";
     selectedPet = inputFloraline.id
-    selectEnemyPet();
   } else if (inputThundercat.checked) {
     friendPet.innerHTML = inputThundercat.id
     selectedCharacterImage.src = "./images/Thunder.png";
     selectedPet = inputThundercat.id
-    selectEnemyPet();
   } else if (inputTucaferreti.checked) {
     friendPet.innerHTML = inputTucaferreti.id
     selectedCharacterImage.src = "./images/Tucaferreti.webp";
     selectedPet = inputTucaferreti.id
-    selectEnemyPet();
   } else if (inputJachibombo.checked) {
     friendPet.innerHTML = inputJachibombo.id
     selectedCharacterImage.src = "./images/Jachibombo.webp";
     selectedPet = inputJachibombo.id
-    selectEnemyPet();
   } else {
     alert("You selected to be a loser 👎");
   }
 
   extractAttacks(selectedPet)
+  selectEnemyPet()
 }
 
 function extractAttacks(selectedPet){
@@ -245,98 +239,46 @@ function showAttacks(attacks){
      buttonWind = document.getElementById("button-wind");
      buttonPlasma = document.getElementById("button-plasma");
      attackButtons = document.querySelectorAll(".attackB")
-
-    //AddEventListeners after the buttons are created
-    
-    buttonFire.addEventListener("click", () => {
-      console.log("You selected fire")
-      attackFire();
-      selectEnemyAttack();
-    });
-    buttonWater.addEventListener("click", () => {
-      console.log("You selected water")
-      attackWater();
-      selectEnemyAttack();
-    });
-    buttonPlantae.addEventListener("click", () => {
-      console.log("You selected nature")
-      attackPlantae();
-      selectEnemyAttack();
-    });
-    buttonElectricity.addEventListener("click", () => {
-      console.log("You selected electricity")
-      attackElectricity();
-      selectEnemyAttack();
-    });
-    buttonWind.addEventListener("click", () => {
-      console.log("You selected wind")
-      attackWind();
-      selectEnemyAttack();
-    });
-    buttonPlasma.addEventListener("click", () => {
-      console.log("You selected plasma")
-      attackPlasma();
-      selectEnemyAttack();
-    });  
-    
 }
-/*
+
 function attackSequence(){
-  attackButtons.forEach((attackButton) =>{
+  attackButtons.forEach((attackButton) => {
     attackButton.addEventListener("click", (e) => {
       if(e.target.textContent === "🔥"){
-        attackOfPlayer.push("Fire")
-        console.log(attackOfPlayer)
-        playerAttack = buttonFire;
+        playerAttack.push("FIRE")
+        console.log(playerAttack)
         selectedAttack = "🔥"
-        console.log("You selected fire")
-        selectEnemyAttack();
         attackButton.style.background = "black"
       }else if(e.target.textContent === "💧"){
-        attackOfPlayer.push("Water")
-        console.log(attackOfPlayer)
-        playerAttack = buttonWater;
+        playerAttack.push("WATER")
+        console.log(playerAttack)
         selectedAttack = "💧"
-        console.log("You selected water")
-        selectEnemyAttack();
         attackButton.style.background = "black"
       }else if(e.target.textContent === "🍃"){
-        attackOfPlayer.push("Nature")
-        console.log(attackOfPlayer)
-        playerAttack = buttonPlantae;
+        playerAttack.push("PLANTAE")
+        console.log(playerAttack)
         selectedAttack = "🍃"
-        console.log("You selected nature")
-        selectEnemyAttack();
         attackButton.style.background = "black"
       }else if(e.target.textContent === "⚡"){
-        attackOfPlayer.push("Electricity")
-        console.log(attackOfPlayer)
-        playerAttack = buttonElectricity;
+        playerAttack.push("ELECTRICITY")
+        console.log(playerAttack)
         selectedAttack = "⚡"
-        console.log("You selected electricity")
-        selectEnemyAttack();
         attackButton.style.background = "black"
       }else if(e.target.textContent === "💨"){
-        attackOfPlayer.push("Wind")
-        console.log(attackOfPlayer)
-        playerAttack = buttonWind;
+        playerAttack.push("WIND")
+        console.log(playerAttack)
         selectedAttack = "💨"
-        console.log("You selected wind")
-        selectEnemyAttack();
         attackButton.style.background = "black"
       }else if(e.target.textContent === "🌌"){
-        attackOfPlayer.push("Plasma")
-        console.log(attackOfPlayer)
-        playerAttack = buttonPlasma;
+        playerAttack.push("PLASMA")
+        console.log(playerAttack)
         selectedAttack = "🌌"
-        console.log("You selected plasma")
-        selectEnemyAttack();
         attackButton.style.background = "black"
       }
+      selectEnemyAttack()
     })
   })
 }
-  */
 
 function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -356,6 +298,9 @@ function selectEnemyPet() {
   //Inserting name and image of mokepons
   enemyPet.innerHTML = mokepons[aleatorySelection].name
   selectedEnemyCharacterImage.src = mokepons[aleatorySelection].photo
+  //Calling function
+  attackSequence();
+
 }
 
 function selectEnemyAttack() {
@@ -364,75 +309,34 @@ function selectEnemyAttack() {
 
   if (aleatoryAttack === 1) {
     enemyAttack = "FIRE";
-    console.log("Enemey selected " + enemyAttack)
     selectedEnemyAttack = "🔥"
   } else if (aleatoryAttack === 2) {
     enemyAttack = "WATER";
     selectedEnemyAttack = "💧"
-    console.log("Enemey selected " + enemyAttack)
 
   } else if (aleatoryAttack === 3) {
     enemyAttack = "PLANTAE";
     selectedEnemyAttack = "🍃"
-    console.log("Enemey selected " + enemyAttack)
 
   } else if (aleatoryAttack === 4) {
     enemyAttack = "ELECTRICITY";
     selectedEnemyAttack = "⚡"
-    console.log("Enemey selected " + enemyAttack)
 
   } else if (aleatoryAttack === 5) {
     enemyAttack = "WIND";
     selectedEnemyAttack = "💨"
-    console.log("Enemey selected " + enemyAttack)
 
   } else if (aleatoryAttack === 6) {
     enemyAttack = "PLASMA";
     selectedEnemyAttack = "🌌"
-    console.log("Enemey selected " + enemyAttack)
 
   }
 
+  console.log("Enemey selected " + aleatoryAttack + " which means: " + enemyAttack)
+
+
   marcador();
   addMessage();
-  attackSequence();
-}
-
-//Available attacks
-
-function attackFire() {
-  playerAttack = "FIRE";
-  selectedAttack = "🔥"
-}
-
-function attackWater() {
-  playerAttack = "WATER";
-  selectedAttack = "💧"
-
-}
-
-function attackPlantae() {
-  playerAttack = "PLANTAE";
-  selectedAttack = "🍃"
-
-}
-
-function attackElectricity() {
-  playerAttack = "ELECTRICITY";
-  selectedAttack = "⚡"
-
-}
-
-function attackWind() {
-  playerAttack = "WIND";
-  selectedAttack = "💨"
-
-}
-
-function attackPlasma() {
-  playerAttack = "PLASMA";
-  selectedAttack = "🌌"
-
 }
   
 
