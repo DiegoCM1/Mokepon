@@ -27,6 +27,9 @@ const enemyPet = document.getElementById("enemy-pet");
 const selectedEnemyCharacterImage = document.getElementById(
   "selected-enemy-character-image"
 );
+//Section see map
+const sectionSeeMap = document.getElementById("see-map")
+const map = document.getElementById("map")
 //Marcador
 const spanfriendVictories = document.getElementById("friend-victories");
 const spanenemyVictories = document.getElementById("enemy-victories");
@@ -59,6 +62,8 @@ let enemyAttack = []
 let enemyMokeponAttacks
 let lastFriendlyAttack
 let lastEnemyAttack
+let canvas = map.getContext("2d")
+let interval
 
 
 //Array of mokepons
@@ -78,6 +83,14 @@ class Mokepon {
     this.photo = photo;
     this.life = life;
     this.attacks = [];
+    this.x = 20
+    this.y = 30
+    this.width = 80
+    this.height = 80
+    this.photoMap = new Image()
+    this.photoMap.src = photo
+    this.speedX = 0
+    this.speedY = 0
   }
 }
 
@@ -151,6 +164,7 @@ mokepons.push(
 //Functions
 function initiateGame() {
   //Hiding sections in HTML
+  sectionSeeMap.style.display = "none"
   sectionLifes.style.display = "none";
   sectionMessages.style.display = "none";
   sectionRestart.style.display = "none";
@@ -177,11 +191,10 @@ function initiateGame() {
     inputJachibombo = document.getElementById("Jachibombo");
   });
 
-
   //Select our pet and enemy pet
   buttonPet.addEventListener("click", selectPet);
   buttonRestart.addEventListener("click", restartGame);
-  }
+}
 
 function selectPet() {
   if (inputFiregod.checked) {
@@ -297,9 +310,12 @@ function aleatorio(min, max) {
 
 function selectEnemyPet() {
   //Showing back the sections
-  sectionSelectAttack.style.display = "flex";
-  sectionLifes.style.display = "grid";
-  sectionMessages.style.display = "flex";
+  sectionSeeMap.style.display = "flex"
+  initiateMap();
+  //canvas.fillRect(5,15,20,40)
+  //sectionSelectAttack.style.display = "flex";
+  //sectionLifes.style.display = "grid";
+  //sectionMessages.style.display = "flex";
   //Hiding sections
   sectionTitle.style.display = "none";
   sectionRestart.style.display = "none";
@@ -312,7 +328,65 @@ function selectEnemyPet() {
   enemyMokeponAttacks = mokepons[aleatorySelection].attacks
   //Calling function
   attackSequence();
+}
 
+function paintCharacter(){
+  firegod.x = firegod.x + firegod.speedX
+  firegod.y = firegod.y + firegod.speedY
+  canvas.clearRect(0, 0, map.width, map.height)
+  canvas.drawImage(firegod.photoMap , firegod.x, firegod.y, firegod.width, firegod.height)
+}
+
+function movePetRight(){
+  firegod.speedX = 2
+  paintCharacter()
+}
+function movePetLeft(){
+  firegod.speedX = -2
+  paintCharacter()
+}
+function movePetUp(){
+  firegod.speedY = -2
+  paintCharacter()
+}
+function movePetDown(){
+  firegod.speedY = 2
+  paintCharacter()
+}
+
+function stopMovement(){
+  firegod.speedX = 0
+  firegod.speedY = 0
+}
+
+function movePetWithKeyboard(event){
+  console.log(event.key)
+  switch (event.key) {
+    case "ArrowUp":
+    case "w":
+      movePetUp()
+      break
+    case "ArrowLeft":
+    case "a":
+      movePetLeft()
+      break
+    case "ArrowDown":
+    case "s":
+      movePetDown()
+      break
+    case "ArrowRight":
+    case "d":
+      movePetRight()
+      break
+    default:
+      break
+  }
+}
+
+function initiateMap(){
+  interval = setInterval(paintCharacter, 50)
+  window.addEventListener("keydown", movePetWithKeyboard)
+  window.addEventListener("keyup", stopMovement)
 }
 
 function selectEnemyAttack() {
