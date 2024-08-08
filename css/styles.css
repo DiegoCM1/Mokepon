@@ -51,7 +51,7 @@ input:checked + label {
   background-color: black;
   color: yellow;
   border: yellow 4px solid;
-  border-radius: 5px;
+  border-radius: 3px;
   transition-duration: 0.1s;
 }
 
@@ -59,13 +59,14 @@ input:checked + label {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  height: 70%;
+  width: 70;
+  height: 65%;
 }
 
 .name-pet {
   display: flex;
   justify-content: center;
+  font-size: small;
 }
 
 .label-border {
@@ -228,6 +229,54 @@ input:checked + label {
   color: white;
 }
 
+@media only screen and (min-width: 767px) {
+  .container-images {
+    display: flex;
+    width: 25vw;
+    height: 24vh;
+    justify-content: center;
+    margin-bottom: 3%;
+    border-radius: 7px;
+    border: solid 2px black;
+  }
+  .name-pet {
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+  }
+}
+@media only screen and (min-width: 1023px) {
+  .container-images {
+    display: flex;
+    width: 25vw;
+    height: 24vh;
+    justify-content: center;
+    margin-bottom: 3%;
+    border-radius: 9px;
+    border: solid 3px black;
+  }
+  .name-pet {
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+  }
+}
+@media only screen and (min-width: 1439px) {
+  .container-images {
+    display: flex;
+    width: 25vw;
+    height: 24vh;
+    justify-content: center;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    border: solid 3px black;
+  }
+  .name-pet {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+  }
+}
 .bg {
   /*background: radial-gradient(circle at bottom, yellow, orange, red);
   border-radius: 50%;*/
@@ -235,7 +284,7 @@ input:checked + label {
   border-radius: 50%;
 }
 
-.background-image {
+s .background-image {
   background-image: url("../images/backgroundImg.webp");
   background-size: cover; /* Ensures the image covers the entire element */
   background-position: center; /* Centers the image */
