@@ -64,6 +64,10 @@ let lastFriendlyAttack
 let lastEnemyAttack
 let canvas = map.getContext("2d")
 let interval
+let backgroundMap = new Image()
+backgroundMap.src = "../images/mokemap.avif"
+let extractedDrawMokepon
+
 
 
 //Array of mokepons
@@ -330,33 +334,43 @@ function selectEnemyPet() {
   attackSequence();
 }
 
-function paintCharacter(){
-  firegod.x = firegod.x + firegod.speedX
-  firegod.y = firegod.y + firegod.speedY
+function paintCanva(){
+  
+  extractedDrawMokepon.x = extractedDrawMokepon.x + extractedDrawMokepon.speedX
+  extractedDrawMokepon.y = extractedDrawMokepon.y + extractedDrawMokepon.speedY
   canvas.clearRect(0, 0, map.width, map.height)
-  canvas.drawImage(firegod.photoMap , firegod.x, firegod.y, firegod.width, firegod.height)
+  canvas.drawImage(backgroundMap, 0,0, map.width, map.height)
+  canvas.drawImage(extractedDrawMokepon.photoMap , extractedDrawMokepon.x, extractedDrawMokepon.y, extractedDrawMokepon.width, extractedDrawMokepon.height)
+}
+
+function extractDrawOfPet(){
+  for (let i = 0; i < mokepons.length; i++) {
+    if(selectedPet === mokepons[i].name) {
+      return mokepons[i]
+    }  
+  }
 }
 
 function movePetRight(){
-  firegod.speedX = 2
-  paintCharacter()
+  extractedDrawMokepon.speedX = 2
+  paintCanva()
 }
 function movePetLeft(){
-  firegod.speedX = -2
-  paintCharacter()
+  extractedDrawMokepon.speedX = -2
+  paintCanva()
 }
 function movePetUp(){
-  firegod.speedY = -2
-  paintCharacter()
+  extractedDrawMokepon.speedY = -2
+  paintCanva()
 }
 function movePetDown(){
-  firegod.speedY = 2
-  paintCharacter()
+  extractedDrawMokepon.speedY = 2
+  paintCanva()
 }
 
 function stopMovement(){
-  firegod.speedX = 0
-  firegod.speedY = 0
+  extractedDrawMokepon.speedX = 0
+  extractedDrawMokepon.speedY = 0
 }
 
 function movePetWithKeyboard(event){
@@ -384,7 +398,10 @@ function movePetWithKeyboard(event){
 }
 
 function initiateMap(){
-  interval = setInterval(paintCharacter, 50)
+  extractedDrawMokepon = extractDrawOfPet(selectedPet)
+  map.width = 320
+  map.height = 240
+  interval = setInterval(paintCanva, 50)
   window.addEventListener("keydown", movePetWithKeyboard)
   window.addEventListener("keyup", stopMovement)
 }
