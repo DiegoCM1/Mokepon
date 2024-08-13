@@ -335,7 +335,6 @@ function selectEnemyPet() {
 }
 
 function paintCanva(){
-  
   extractedDrawMokepon.x = extractedDrawMokepon.x + extractedDrawMokepon.speedX
   extractedDrawMokepon.y = extractedDrawMokepon.y + extractedDrawMokepon.speedY
   canvas.clearRect(0, 0, map.width, map.height)
@@ -352,19 +351,19 @@ function extractDrawOfPet(){
 }
 
 function movePetRight(){
-  extractedDrawMokepon.speedX = 2
+  extractedDrawMokepon.speedX = 5
   paintCanva()
 }
 function movePetLeft(){
-  extractedDrawMokepon.speedX = -2
+  extractedDrawMokepon.speedX = -5
   paintCanva()
 }
 function movePetUp(){
-  extractedDrawMokepon.speedY = -2
+  extractedDrawMokepon.speedY = -5
   paintCanva()
 }
 function movePetDown(){
-  extractedDrawMokepon.speedY = 2
+  extractedDrawMokepon.speedY = 5
   paintCanva()
 }
 
@@ -399,8 +398,13 @@ function movePetWithKeyboard(event){
 
 function initiateMap(){
   extractedDrawMokepon = extractDrawOfPet(selectedPet)
-  map.width = 320
-  map.height = 240
+  
+  // Calculate width and height in pixels based on viewport width
+  const vwToPx = (vw) => (vw / 100) * window.innerWidth;
+  const vhToPx = (vh) => (vh / 100) * window.innerHeight;
+
+  map.width = vwToPx(90); // 90vw converted to pixels
+  map.height = vhToPx(75); // 240vh converted to pixels
   interval = setInterval(paintCanva, 50)
   window.addEventListener("keydown", movePetWithKeyboard)
   window.addEventListener("keyup", stopMovement)
