@@ -65,7 +65,8 @@ let lastEnemyAttack
 let canvas = map.getContext("2d")
 let interval
 let backgroundMap = new Image()
-backgroundMap.src = "../images/mokemap.avif"
+backgroundMap.src
+let extractedDrawBackgroundMap
 let extractedDrawMokepon
 
 
@@ -82,19 +83,27 @@ let playerAttackName = "Attack Name Default"
 
 //Creationg of a class for mokepons array
 class Mokepon {
-  constructor(name, photo, life) {
+  constructor(name, photo, life, x = 10, y = 10) {
     this.name = name;
     this.photo = photo;
     this.life = life;
     this.attacks = [];
-    this.x = 20
-    this.y = 30
+    this.x = x
+    this.y = y
     this.width = 80
     this.height = 80
     this.photoMap = new Image()
     this.photoMap.src = photo
     this.speedX = 0
     this.speedY = 0
+  }
+  paintMokepon(){
+    canvas.drawImage(
+      this.photoMap ,
+      this.x, 
+      this.y, 
+      this.width, 
+      this.height)
   }
 }
 
@@ -105,6 +114,12 @@ let watermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3);
 let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
 let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
+let evilFiregod = new Mokepon("Firegod", "./images/Firegod.jpg", 3, 100, 100);
+let evilThundercat = new Mokepon("Thundercat", "./images/Thunder.png", 3, 200, 0);
+let evilWatermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3, 200, 200);
+let evilTucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3, 100, 300);
+let evilFloraline = new Mokepon("Floraline", "./images/flor.png", 3, 10, 300);
+let evilJachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3, 200, 100);
 
 //Adding new attacks to the property depending on the mokepon
 firegod.attacks.push(
@@ -340,6 +355,13 @@ function paintCanva(){
   canvas.clearRect(0, 0, map.width, map.height)
   canvas.drawImage(backgroundMap, 0,0, map.width, map.height)
   canvas.drawImage(extractedDrawMokepon.photoMap , extractedDrawMokepon.x, extractedDrawMokepon.y, extractedDrawMokepon.width, extractedDrawMokepon.height)
+  evilFiregod.paintMokepon()
+  evilFloraline.paintMokepon()
+  evilWatermelon.paintMokepon()
+  evilThundercat.paintMokepon()
+  evilTucaferreti.paintMokepon()
+  evilJachibombo.paintMokepon()
+
 }
 
 function extractDrawOfPet(){
@@ -348,6 +370,23 @@ function extractDrawOfPet(){
       return mokepons[i]
     }  
   }
+}
+
+function extractDrawOfBackgroundMap(){
+  if (selectedPet == "Firegod") {
+    backgroundMap.src = "../images/mokemap.avif"
+  } else if (selectedPet == "Watermelon"){
+    backgroundMap.src = "../images/backgroundImgWater2.webp"
+  } else if (selectedPet == "Floraline"){
+    backgroundMap.src = "../images/backgroundImgPlantae.webp"
+  } else if (selectedPet == "Thundercat"){
+    backgroundMap.src = "../images/backgroundImgElectricity.webp"
+  } else if (selectedPet == "Tucaferreti"){
+    backgroundMap.src = "../images/backgroundImgAir.webp"
+  } else if (selectedPet == "Jachibombo"){
+    backgroundMap.src = "../images/backgroundImgPlasma.avif"
+  }
+  return backgroundMap.src
 }
 
 function movePetRight(){
@@ -398,6 +437,7 @@ function movePetWithKeyboard(event){
 
 function initiateMap(){
   extractedDrawMokepon = extractDrawOfPet(selectedPet)
+  extractedDrawBackgroundMap = extractDrawOfBackgroundMap(selectedPet)
   
   // Calculate width and height in pixels based on viewport width
   const vwToPx = (vw) => (vw / 100) * window.innerWidth;
