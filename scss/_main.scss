@@ -117,6 +117,24 @@ input:checked + label{
 }
 
 
+.buttonsMovement{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(158, 60, 60);
+  color: white;
+}
+
+.movement-buttons-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid yellow 1px;
+  width: 100vw;
+  height: 10vh;
+}
+
+
 //Select attack starts
 
 #select-attack {

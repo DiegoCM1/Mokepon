@@ -62,13 +62,17 @@ let enemyAttack = []
 let enemyMokeponAttacks
 let lastFriendlyAttack
 let lastEnemyAttack
+
+//Canvas shit
 let canvas = map.getContext("2d")
 let interval
 let backgroundMap = new Image()
 backgroundMap.src
 let extractedDrawBackgroundMap
 let extractedDrawMokepon
-
+// Calculate width and height in pixels based on viewport width
+const vwToPx = (vw) => (vw / 100) * window.innerWidth;
+const vhToPx = (vh) => (vh / 100) * window.innerHeight;
 
 
 //Array of mokepons
@@ -90,8 +94,8 @@ class Mokepon {
     this.attacks = [];
     this.x = x
     this.y = y
-    this.width = 80
-    this.height = 80
+    this.width = vwToPx(10)
+    this.height = vwToPx(10)
     this.photoMap = new Image()
     this.photoMap.src = photo
     this.speedX = 0
@@ -331,10 +335,6 @@ function selectEnemyPet() {
   //Showing back the sections
   sectionSeeMap.style.display = "flex"
   initiateMap();
-  //canvas.fillRect(5,15,20,40)
-  //sectionSelectAttack.style.display = "flex";
-  //sectionLifes.style.display = "grid";
-  //sectionMessages.style.display = "flex";
   //Hiding sections
   sectionTitle.style.display = "none";
   sectionRestart.style.display = "none";
@@ -353,15 +353,25 @@ function paintCanva(){
   extractedDrawMokepon.x = extractedDrawMokepon.x + extractedDrawMokepon.speedX
   extractedDrawMokepon.y = extractedDrawMokepon.y + extractedDrawMokepon.speedY
   canvas.clearRect(0, 0, map.width, map.height)
-  canvas.drawImage(backgroundMap, 0,0, map.width, map.height)
-  canvas.drawImage(extractedDrawMokepon.photoMap , extractedDrawMokepon.x, extractedDrawMokepon.y, extractedDrawMokepon.width, extractedDrawMokepon.height)
+  canvas.drawImage(backgroundMap, 0,0, map.width, map.height) //Draws the background of the map
+  canvas.drawImage(extractedDrawMokepon.photoMap , extractedDrawMokepon.x, extractedDrawMokepon.y, extractedDrawMokepon.width, extractedDrawMokepon.height) //Draws your mokepon
+  //Painting all evil mokepons trought the map
   evilFiregod.paintMokepon()
   evilFloraline.paintMokepon()
   evilWatermelon.paintMokepon()
   evilThundercat.paintMokepon()
   evilTucaferreti.paintMokepon()
   evilJachibombo.paintMokepon()
+  //Checks if there is a collision whenever extractedDrawMokepon has a speed different than 0
+  if(extractedDrawMokepon.speedX !== 0 || extractedDrawMokepon.speedY !==0){
+    reviewCollisionMap(evilFiregod)
+    reviewCollisionMap(evilFloraline)
+    reviewCollisionMap(evilWatermelon)
+    reviewCollisionMap(evilThundercat)
+    reviewCollisionMap(evilTucaferreti)
+    reviewCollisionMap(evilJachibombo)
 
+  }
 }
 
 function extractDrawOfPet(){
@@ -438,10 +448,6 @@ function movePetWithKeyboard(event){
 function initiateMap(){
   extractedDrawMokepon = extractDrawOfPet(selectedPet)
   extractedDrawBackgroundMap = extractDrawOfBackgroundMap(selectedPet)
-  
-  // Calculate width and height in pixels based on viewport width
-  const vwToPx = (vw) => (vw / 100) * window.innerWidth;
-  const vhToPx = (vh) => (vh / 100) * window.innerHeight;
 
   map.width = vwToPx(90); // 90vw converted to pixels
   map.height = vhToPx(75); // 240vh converted to pixels
@@ -658,7 +664,33 @@ function restartGame() {
   location.reload();
 }
 
-//ExecutioninputFiregod
-window.addEventListener("load", initiateGame);
+function reviewCollisionMap(enemy){
+  //Sides of the enemy's pet
+  const upsideEnemy = enemy.y
+  const downsideEnemy = enemy.y + enemy.height
+  const leftsideEnemy = enemy.x
+  const rightsideEnemy = enemy.x + enemy.width
+  //Sides of the player's pet
+  const upsidePet = extractedDrawMokepon.y
+  const downsidePet = extractedDrawMokepon.y + extractedDrawMokepon.height
+  const leftsidePet = extractedDrawMokepon.x
+  const rightsidePet = extractedDrawMokepon.x + extractedDrawMokepon.width
+  //Conditionals to validate the collision
+  if (downsidePet < upsideEnemy ||
+      upsidePet > downsideEnemy ||
+      rightsidePet < leftsideEnemy || 
+      leftsidePet > rightsideEnemy) {
+    return
+  }
+    alert("There is a collision with " + enemy.name)
+    stopMovement()
 
-//Second part Finishes
+    //Show sections back
+    sectionSeeMap.style.display = "none"
+    sectionSelectAttack.style.display = "flex";
+    sectionLifes.style.display = "grid";
+    sectionMessages.style.display = "flex";
+
+}
+
+window.addEventListener("load", initiateGame);

@@ -113,6 +113,23 @@ input:checked + label {
   border: solid black 2px;
 }
 
+.buttonsMovement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(158, 60, 60);
+  color: white;
+}
+
+.border {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid yellow 1px;
+  width: 100vw;
+  height: 10vh;
+}
+
 #select-attack {
   display: flex;
   flex-direction: column;
