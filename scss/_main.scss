@@ -93,6 +93,8 @@ input:checked + label{
   align-items: center;
   background-color: rgb(158, 60, 60);
   color: white;
+  border: gray 2px solid;
+  border-radius: 5px;
   width: 95%;
   height: 95%;
 }
@@ -123,15 +125,36 @@ input:checked + label{
   align-items: center;
   background-color: rgb(158, 60, 60);
   color: white;
+  border: gray 2px solid;
+  border-radius: 5px;
+  width: 9vw;
+  height: 5vh;
+}
+
+.buttonsMovement:hover {
+  transition-duration: 0.2s;
+  background-color: rgb(31, 24, 24);
+  color: red;
 }
 
 .movement-buttons-container{
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid yellow 1px;
-  width: 100vw;
-  height: 10vh;
+  flex-direction: column;
+  //border: solid yellow 1px;
+  width: 30vw;
+  margin-top: 1vh;
+}
+.movement-buttons-container-2{
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  flex-direction: row;
+  //border: solid green 1px;
+  width: 100%;
+  margin-top: 1vh;
+
 }
 
 

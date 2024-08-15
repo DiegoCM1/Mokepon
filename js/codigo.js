@@ -305,6 +305,7 @@ function selectPet() {
   //Showing and hiding sections
   sectionSeeMap.style.display = "flex"
   sectionSelectPet.style.display = "none"
+  sectionTitle.style.display = "none"
 
   initiateMap();
 }

@@ -38,9 +38,11 @@
             <canvas id="map"></canvas>
             <div class="movement-buttons-container">
                 <button onmouseup="stopMovement()" onmousedown="movePetUp()" class="buttonsMovement concert-one-regular">Up</button>
-                <button onmouseup="stopMovement()" onmousedown="movePetLeft()" class="buttonsMovement concert-one-regular">Left</button>
-                <button onmouseup="stopMovement()" onmousedown="movePetDown()" class="buttonsMovement concert-one-regular">Down</button>
-                <button onmouseup="stopMovement()" onmousedown="movePetRight()" class="buttonsMovement concert-one-regular">Rigth</button>
+                <div class="movement-buttons-container-2">
+                    <button onmouseup="stopMovement()" onmousedown="movePetLeft()" ontouchend="stopMovement()" ontouchstart="movePetUp()" class="buttonsMovement concert-one-regular">Left</button>
+                    <button onmouseup="stopMovement()" onmousedown="movePetDown()" ontouchend="stopMovement()" ontouchstart="movePetUp()" class="buttonsMovement concert-one-regular">Down</button>
+                    <button onmouseup="stopMovement()" onmousedown="movePetRight()" ontouchend="stopMovement()" ontouchstart="movePetUp()" class="buttonsMovement concert-one-regular">Rigth</button>
+                </div>
             </div>
         </section>
 
