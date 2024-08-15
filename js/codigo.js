@@ -174,6 +174,54 @@ jachibombo.attacks.push(
   { name: "💨", id: "button-wind" },
 );
 
+evilFiregod.attacks.push(
+  { name: "🔥", id: "button-fire" },
+  { name: "🔥", id: "button-fire" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "💧", id: "button-water" },
+  { name: "🍃", id: "button-plantae" }
+);
+
+evilThundercat.attacks.push(
+  { name: "⚡", id: "button-electricity" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "🔥", id: "button-fire" },
+  { name: "💨", id: "button-wind" },
+  { name: "🌌", id: "button-plasma" }
+);
+
+evilWatermelon.attacks.push(
+  { name: "💧", id: "button-water" },
+  { name: "💧", id: "button-water" },
+  { name: "💨", id: "button-wind" },
+  { name: "🔥", id: "button-fire" },
+  { name: "🍃", id: "button-plantae" }
+);
+
+evilTucaferreti.attacks.push(
+  { name: "💨", id: "button-wind" },
+  { name: "💨", id: "button-wind" },
+  { name: "💧", id: "button-water" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "🌌", id: "button-plasma" }
+);
+
+evilFloraline.attacks.push(
+  { name: "🍃", id: "button-plantae" },
+  { name: "🍃", id: "button-plantae" },
+  { name: "🌌", id: "button-plasma" },
+  { name: "🔥", id: "button-fire" },
+  { name: "💧", id: "button-water" },
+);
+
+evilJachibombo.attacks.push(
+  { name: "🌌", id: "button-plasma" },
+  { name: "🌌", id: "button-plasma" },
+  { name: "🍃", id: "button-plantae" },
+  { name: "⚡", id: "button-electricity" },
+  { name: "💨", id: "button-wind" },
+);
+
 //Adding mokepons to the array 'mokepons'
 mokepons.push(
   firegod,
@@ -249,7 +297,12 @@ function selectPet() {
   }
 
   extractAttacks(selectedPet)
-  selectEnemyPet()
+
+  //Showing and hiding sections
+  sectionSeeMap.style.display = "flex"
+  sectionSelectPet.style.display = "none"
+
+  initiateMap();
 }
 
 function extractAttacks(selectedPet){
@@ -331,20 +384,20 @@ function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function selectEnemyPet() {
-  //Showing back the sections
-  sectionSeeMap.style.display = "flex"
-  initiateMap();
-  //Hiding sections
-  sectionTitle.style.display = "none";
-  sectionRestart.style.display = "none";
-  sectionSelectPet.style.display = "none";
+function selectEnemyPet(colissionedEnemy) {
   //Enemy selects pet
-  let aleatorySelection = aleatorio(mokepons.length -1, 0);
+  //let aleatorySelection = aleatorio(mokepons.length -1, 0);
   //Inserting name, image and attacks of mokepons
-  enemyPet.innerHTML = mokepons[aleatorySelection].name
-  selectedEnemyCharacterImage.src = mokepons[aleatorySelection].photo
-  enemyMokeponAttacks = mokepons[aleatorySelection].attacks
+  //enemyPet.innerHTML = mokepons[aleatorySelection].name
+  //selectedEnemyCharacterImage.src = mokepons[aleatorySelection].photo
+  //enemyMokeponAttacks = mokepons[aleatorySelection].attacks
+  
+  //Enemy selects pet
+  //let aleatorySelection = aleatorio(mokepons.length -1, 0);
+  //Inserting name, image and attacks of mokepons
+  enemyPet.innerHTML = colissionedEnemy.name
+  selectedEnemyCharacterImage.src = colissionedEnemy.photo
+  enemyMokeponAttacks = colissionedEnemy.attacks
   //Calling function
   attackSequence();
 }
@@ -682,14 +735,22 @@ function reviewCollisionMap(enemy){
       leftsidePet > rightsideEnemy) {
     return
   }
-    alert("There is a collision with " + enemy.name)
     stopMovement()
+    clearInterval(interval)
+    console.log("A colission was detected")
+
 
     //Show sections back
-    sectionSeeMap.style.display = "none"
     sectionSelectAttack.style.display = "flex";
+    sectionSeeMap.style.display = "none"
+    sectionTitle.style.display = "none";
+    sectionRestart.style.display = "none";
+    sectionSelectPet.style.display = "none";
     sectionLifes.style.display = "grid";
     sectionMessages.style.display = "flex";
+
+    //Calling function to select enemy depending on which element had a collision
+    selectEnemyPet(enemy)
 
 }
 
