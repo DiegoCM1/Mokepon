@@ -472,6 +472,8 @@ function movePetDown(){
 function stopMovement(){
   extractedDrawMokepon.speedX = 0
   extractedDrawMokepon.speedY = 0
+  clearInterval(interval)
+
 }
 
 function movePetWithKeyboard(event){
@@ -736,9 +738,6 @@ function reviewCollisionMap(enemy){
     return
   }
     stopMovement()
-    clearInterval(interval)
-    console.log("A colission was detected")
-
 
     //Show sections back
     sectionSelectAttack.style.display = "flex";
