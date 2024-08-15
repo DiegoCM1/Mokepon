@@ -73,7 +73,8 @@ let extractedDrawMokepon
 // Calculate width and height in pixels based on viewport width
 const vwToPx = (vw) => (vw / 100) * window.innerWidth;
 const vhToPx = (vh) => (vh / 100) * window.innerHeight;
-
+let widthMap = window.innerWidth - 20
+const maxMapWidth = 800
 
 //Array of mokepons
 let mokepons = [];
@@ -85,17 +86,20 @@ let attacks = "This is a value"
 let playerAttackName = "Attack Name Default"
 
 
-//Creationg of a class for mokepons array
+//Creation of a class for mokepons array
 class Mokepon {
-  constructor(name, photo, life, x = 10, y = 10) {
+  constructor(name, photo, life, x = 50, y = 50) {
+    
     this.name = name;
     this.photo = photo;
     this.life = life;
     this.attacks = [];
+    //this.width = vwToPx(10)
+    //this.height = vwToPx(10)
+    this.width = 50
+    this.height = 50
     this.x = x
     this.y = y
-    this.width = vwToPx(10)
-    this.height = vwToPx(10)
     this.photoMap = new Image()
     this.photoMap.src = photo
     this.speedX = 0
@@ -118,12 +122,12 @@ let watermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3);
 let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
 let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
-let evilFiregod = new Mokepon("Firegod", "./images/Firegod.jpg", 3, 100, 100);
-let evilThundercat = new Mokepon("Thundercat", "./images/Thunder.png", 3, 200, 0);
-let evilWatermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3, 200, 200);
-let evilTucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3, 100, 300);
-let evilFloraline = new Mokepon("Floraline", "./images/flor.png", 3, 10, 300);
-let evilJachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3, 200, 100);
+let evilFiregod = new Mokepon("Firegod", "./images/Firegod.jpg", 3, 260, 400);
+let evilThundercat = new Mokepon("Thundercat", "./images/Thunder.png", 3, 150, 50);
+let evilWatermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3, 50, 170);
+let evilTucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3, 50, 250);
+let evilFloraline = new Mokepon("Floraline", "./images/flor.png", 3, 250, 50);
+let evilJachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3, 150, 250);
 
 //Adding new attacks to the property depending on the mokepon
 firegod.attacks.push(
@@ -423,7 +427,7 @@ function paintCanva(){
     reviewCollisionMap(evilThundercat)
     reviewCollisionMap(evilTucaferreti)
     reviewCollisionMap(evilJachibombo)
-
+    stopOnBorderMap()
   }
 }
 
@@ -473,7 +477,6 @@ function stopMovement(){
   extractedDrawMokepon.speedX = 0
   extractedDrawMokepon.speedY = 0
   clearInterval(interval)
-
 }
 
 function movePetWithKeyboard(event){
@@ -503,9 +506,9 @@ function movePetWithKeyboard(event){
 function initiateMap(){
   extractedDrawMokepon = extractDrawOfPet(selectedPet)
   extractedDrawBackgroundMap = extractDrawOfBackgroundMap(selectedPet)
-
-  map.width = vwToPx(90); // 90vw converted to pixels
-  map.height = vhToPx(75); // 240vh converted to pixels
+  setSizeMap()
+  //map.width = vwToPx(90); // 90vw converted to pixels
+  //map.height = vhToPx(75); // 240vh converted to pixels
   interval = setInterval(paintCanva, 50)
   window.addEventListener("keydown", movePetWithKeyboard)
   window.addEventListener("keyup", stopMovement)
@@ -739,6 +742,7 @@ function reviewCollisionMap(enemy){
   }
     stopMovement()
 
+
     //Show sections back
     sectionSelectAttack.style.display = "flex";
     sectionSeeMap.style.display = "none"
@@ -750,7 +754,45 @@ function reviewCollisionMap(enemy){
 
     //Calling function to select enemy depending on which element had a collision
     selectEnemyPet(enemy)
+}
 
+function setSizeMap(){
+  if (widthMap > maxMapWidth) {
+    widthMap = maxMapWidth - 20
+  }
+  map.width = widthMap
+  map.height = vhToPx(70);
+}
+
+function stopOnBorderMap(){
+   // Border of the map
+   const upsideMap = 0;
+   const downsideMap = map.height;
+   const leftsideMap = 0;
+   const rightsideMap = map.width;
+
+   // Sides of the player's pet
+   const upsidePet = extractedDrawMokepon.y;
+   const downsidePet = extractedDrawMokepon.y + extractedDrawMokepon.height;
+   const leftsidePet = extractedDrawMokepon.x;
+   const rightsidePet = extractedDrawMokepon.x + extractedDrawMokepon.width;
+
+   // Stop the pet at the top border
+   if (upsidePet <= upsideMap) {
+      extractedDrawMokepon.y = upsideMap;
+   } 
+   // Stop the pet at the bottom border
+   else if (downsidePet >= downsideMap) {
+      extractedDrawMokepon.y = downsideMap - extractedDrawMokepon.height;
+   } 
+   // Stop the pet at the right border
+   else if (rightsidePet >= rightsideMap) {
+      extractedDrawMokepon.x = rightsideMap - extractedDrawMokepon.width;
+   } 
+   // Stop the pet at the left border
+   else if (leftsidePet <= leftsideMap) {
+      extractedDrawMokepon.x = leftsideMap;
+   }
 }
 
 window.addEventListener("load", initiateGame);
