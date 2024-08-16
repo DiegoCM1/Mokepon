@@ -308,6 +308,20 @@ function selectPet() {
   sectionTitle.style.display = "none"
 
   initiateMap();
+  joinGame();
+}
+
+function joinGame(){
+  fetch("http://localhost:8080/join")
+    .then(function (res){
+      console.log(res)
+      if (res.ok) {
+        res.text()
+          .then(function(response){
+            console.log(response)
+          })
+      }
+    })
 }
 
 function extractAttacks(selectedPet){
