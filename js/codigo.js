@@ -76,6 +76,9 @@ const vhToPx = (vh) => (vh / 100) * window.innerHeight;
 let widthMap = window.innerWidth - 20
 const maxMapWidth = 800
 
+//Backend
+let playerId = null
+
 //Array of mokepons
 let mokepons = [];
 
@@ -308,20 +311,39 @@ function selectPet() {
   sectionTitle.style.display = "none"
 
   initiateMap();
-  joinGame();
+  joinGame()
 }
 
-function joinGame(){
+function joinGame(){ //Function from backend to generate an id into the console.
   fetch("http://localhost:8080/join")
     .then(function (res){
-      console.log(res)
       if (res.ok) {
         res.text()
           .then(function(response){
-            console.log(response)
+            console.log("Response received, updating playerId:", response);
+            playerId = response
+            console.log("Updated playerId:", playerId);
+            //
+            console.log(`Sending request with playerId: ${playerId}`);
+            selectMokeponBackend(selectedPet);
+            console.log(`Sent playerID: ${playerId}`);
           })
       }
     })
+   /* .then(() => {
+    });*/
+}
+
+function selectMokeponBackend(selectedPet){
+  fetch(`http://localhost:8080/mokepon/${playerId}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      mokeponBackend: selectedPet
+    })
+  })
 }
 
 function extractAttacks(selectedPet){
