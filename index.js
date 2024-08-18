@@ -46,7 +46,7 @@ app.post("/mokepon/:playerId", (req, res) =>{
     const mokepon = new Mokepon(name)
     console.log("Received playerId in backend:", playerId); // Add this for debugging
     
-    const playerIndex = players.findIndex((player) => playerId === playerId)
+    const playerIndex = players.findIndex((player)=>playerId===player.id)
 
     if(playerIndex >= 0){
         players[playerIndex].assignMokepon(mokepon)
@@ -57,18 +57,22 @@ app.post("/mokepon/:playerId", (req, res) =>{
     res.end()
 })
 
-app.post("/mokepon/:playerID/position", (req, res) => {
+app.post("/mokepon/:playerId/position", (req, res) => {
     const playerId = req.params.playerId || ""
     const x = req.body.x || 0
     const y = req.body.y || 0
 
-    const playerIndex = players.findIndex((player) => playerId === playerId)
+    const playerIndex = players.findIndex((player) => playerId === player.id)
 
     if(playerIndex >= 0){
         players[playerIndex].updatePosition(x,y)
     }
 
-    res.end()
+    const enemies = players.filter((player) => playerId !== player.id)
+
+    res.send({
+        enemies
+    })
 })
 
 
