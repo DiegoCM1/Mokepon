@@ -101,12 +101,12 @@ class Mokepon {
     //this.height = vwToPx(10)
     this.width = 50;
     this.height = 50;
-    this.x = x;
-    this.y = y;
     this.photoMap = new Image();
     this.photoMap.src = photo;
     this.speedX = 0;
     this.speedY = 0;
+    this.x = x;
+    this.y = y;
   }
   paintMokepon() {
     canvas.drawImage(this.photoMap, this.x, this.y, this.width, this.height);
@@ -120,7 +120,14 @@ let watermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3);
 let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
 let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
-let evilFiregod = new Mokepon("Firegod", "./images/Firegod.jpg", 3, 260, 400);
+
+let evilFiregod = new Mokepon(
+  "Firegod",
+  "./images/Firegod.jpg",
+  3,
+  260,
+  400
+);
 let evilThundercat = new Mokepon(
   "Thundercat",
   "./images/Thunder.png",
@@ -490,20 +497,34 @@ function paintCanva() {
     stopOnBorderMap();
   }
 
-    //Backend
-    sendPosition(extractedDrawMokepon.x, extractedDrawMokepon.x);
+  //Backend
+  sendPosition(extractedDrawMokepon.x, extractedDrawMokepon.y);
 }
 
 function sendPosition(x, y) {
   fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
     method: "post",
     headers: {
-      "Conten-Type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ x, y }),
   });
+
+  console.log(`FRONTEND -- Value on x: (${x}), Value on y: (${y})`);
+
+  /*.then(function (res) {
+    if(res.ok){
+      res.json()
+          .then(function ({ enemies }){
+            console.log(enemies)
+          })
+    }
+  })
+      */
 }
+
 //Document
+/*
 function enviarPosicion(x, y) {
   fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
     method: "post",
@@ -511,6 +532,7 @@ function enviarPosicion(x, y) {
     body: JSON.stringify({ x, y }),
   });
 }
+  */
 
 function extractDrawOfPet() {
   for (let i = 0; i < mokepons.length; i++) {

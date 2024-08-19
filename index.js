@@ -62,10 +62,13 @@ app.post("/mokepon/:playerId/position", (req, res) => {
     const x = req.body.x || 0
     const y = req.body.y || 0
 
+    console.log(`Value on x: (${x}), Value on y: (${y})`);
+
     const playerIndex = players.findIndex((player) => playerId === player.id)
 
     if(playerIndex >= 0){
-        players[playerIndex].updatePosition(x,y)
+        console.log(`Updating player ${playerId} position to (${x}, ${y})`);
+        players[playerIndex].updatePosition(x ,y)
     }
 
     const enemies = players.filter((player) => playerId !== player.id)
