@@ -458,9 +458,24 @@ function attackSequence() {
         attackButton.style.background = "rgb(70, 0, 0)";
         attackButton.disabled = true;
       }
-      selectEnemyAttack();
+      /*selectEnemyAttack();*/
+      if(playerAttack.length === 5){
+        sendAttacks()
+      }
     });
   });
+}
+
+function sendAttacks(){
+  fetch(`http://localhost:8080/mokepon/${playerId}/attacks`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      attacks: playerAttack
+    })
+  })
 }
 
 function aleatorio(min, max) {

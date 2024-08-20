@@ -16,10 +16,13 @@ class Player {
         this.mokepon = mokepon
     }
 
+    assignAttacks(attacks){
+        this.attacks = attacks
+    }
+
     updatePosition(x,y){
         this.x = x
         this.y = y
-
     }
 }
 
@@ -73,6 +76,20 @@ app.post("/mokepon/:playerId/position", (req, res) => {
     res.send({
         enemies
     })
+})
+
+
+app.post("/mokepon/:playerId/attacks", (req, res) =>{ //Post to receive chosen attacks
+    const playerId = req.params.playerId || ""
+    const attacks = req.body.attacks || [] //Extracting the variable attacks from the frontend
+    
+    const playerIndex = players.findIndex((player)=>playerId===player.id) //Validate that a mokepon has been chosen
+
+    if(playerIndex >= 0){ //Assigning attacks
+        players[playerIndex].assignAttacks(attacks)
+    }
+
+    res.end()
 })
 
 
