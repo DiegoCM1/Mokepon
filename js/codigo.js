@@ -81,7 +81,7 @@ let playerId = null;
 
 //Array of mokepons
 let mokepons = [];
-
+let enemyMokepons = []
 //Attacks of mokepons
 let containerButtonsAttack = document.getElementById(
   "container-buttons-attack"
@@ -92,7 +92,8 @@ let playerAttackName = "Attack Name Default";
 
 //Creation of a class for mokepons array
 class Mokepon {
-  constructor(name, photo, life, x = 50, y = 50) {
+  constructor(name, photo, life, id = null) {
+    this.id = id
     this.name = name;
     this.photo = photo;
     this.life = life;
@@ -105,8 +106,8 @@ class Mokepon {
     this.photoMap.src = photo;
     this.speedX = 0;
     this.speedY = 0;
-    this.x = x;
-    this.y = y;
+    this.x = aleatorio(0, map.width - this.width)
+    this.y = aleatorio(0, map.height - this.height)
   }
   paintMokepon() {
     canvas.drawImage(this.photoMap, this.x, this.y, this.width, this.height);
@@ -518,6 +519,10 @@ function paintCanva() {
 */
   //Backend
   sendPosition(extractedDrawMokepon.x, extractedDrawMokepon.y);
+
+  enemyMokepons.forEach(function(mokepon){
+    mokepon.paintMokepon()
+  })
 }
 
 function sendPosition(x, y) {
@@ -533,7 +538,7 @@ function sendPosition(x, y) {
       res.json()
           .then(function ({enemies}){
             console.log(enemies)
-            enemies.forEach(function(enemy){ //Change the created mokepon depending on what was selected
+            enemyMokepons = enemies.map(function(enemy){ //Change the created mokepon depending on what was selected
               if (enemy.mokepon != undefined) { //Making sure the enemy is defined
                 console.log("Enemy: " + enemy.mokepon)
                 let enemyMokepon = null //Setting a standard variable
@@ -583,11 +588,18 @@ function sendPosition(x, y) {
                   console.log("This is the value of enemy because no other condition was met: " + enemyMokepon)
                 }
 
-                if (enemyMokepon) {
+                //Update values of enemy on x and y before we paint it
+                enemyMokepon.x = enemy.x
+                enemyMokepon.y = enemy.y
+
+                /*
+                if (enemyMokepon) { //Paints enemy mokepon on the canva
                   enemyMokepon.paintMokepon();
                 } else {
-                  console.error("enemyMokepon is null");
+                  console.error("enemyMokepon is null or undefined");
                 }
+                */
+                return enemyMokepon
               }
             })
           })
