@@ -12,8 +12,8 @@ class Player {
         this.id = id
     }
 
-    assignMokepon(mokeponBackend){
-        this.mokeponBackend = mokeponBackend
+    assignMokepon(mokepon){
+        this.mokepon = mokepon
     }
 
     updatePosition(x,y){
@@ -42,9 +42,8 @@ app.get("/join", (req, res) => {
 
 app.post("/mokepon/:playerId", (req, res) =>{
     const playerId = req.params.playerId || ""
-    const name = req.body.mokeponBackend || ""
+    const name = req.body.mokepon || ""
     const mokepon = new Mokepon(name)
-    console.log("Received playerId in backend:", playerId); // Add this for debugging
     
     const playerIndex = players.findIndex((player)=>playerId===player.id)
 
@@ -59,17 +58,17 @@ app.post("/mokepon/:playerId", (req, res) =>{
 
 app.post("/mokepon/:playerId/position", (req, res) => {
     const playerId = req.params.playerId || ""
-    const x = req.body.x || 0
-    const y = req.body.y || 0
+    const x = req.body.x || 0 //Requests value from frontend on x
+    const y = req.body.y || 0 //Requests value from frontend on y
 
     const playerIndex = players.findIndex((player) => playerId === player.id)
 
-    if(playerIndex >= 0){
+    if(playerIndex >= 0){ //Updates position of pet in x and y
         console.log(`Updating player ${playerId} position to (${x}, ${y})`);
         players[playerIndex].updatePosition(x ,y)
     }
 
-    const enemies = players.filter((player) => playerId !== player.id)
+    const enemies = players.filter((player) => playerId !== player.id) //Returns an array of only enemies
 
     res.send({
         enemies

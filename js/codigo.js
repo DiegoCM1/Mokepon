@@ -383,7 +383,7 @@ function selectMokeponBackend(selectedPet) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      mokeponBackend: selectedPet,
+      mokepon: selectedPet,
     }),
   });
 }
@@ -535,46 +535,59 @@ function sendPosition(x, y) {
             console.log(enemies)
             enemies.forEach(function(enemy){ //Change the created mokepon depending on what was selected
               if (enemy.mokepon != undefined) { //Making sure the enemy is defined
+                console.log("Enemy: " + enemy.mokepon)
                 let enemyMokepon = null //Setting a standard variable
                 const mokeponName = enemy.mokepon.name || ""
                 if (mokeponName === "Firegod"){
+                  console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Firegod",
                     "./images/Firegod.jpg",
                     3,
                   );
                 } else if (mokeponName === "Thundercat"){
+                  console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Thundercat",
                     "./images/Thunder.png",
                     3,
                   );
                 } else if (mokeponName === "Watermelon"){
+                  console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Watermelon",
                     "./images/Watermelon.png",
                     3,
                   );
                 } else if (mokeponName === "Tucaferreti"){
+                  console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Tucaferreti",
                     "./images/Tucaferreti.webp",
                     3,
                   );
                 } else if (mokeponName === "Floraline"){
+                  console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon("Floraline",
                     "./images/flor.png",
                     3,
                   );
                 } else if (mokeponName === "Jachibombo"){
+                  console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Jachibombo",
                     "./images/Jachibombo.webp",
                     3,
                   );
+                } else {
+                  console.log("This is the value of enemy because no other condition was met: " + enemyMokepon)
                 }
-                console.log("This is the value of enemyMokepon: " + enemyMokepon)
-                enemyMokepon.paintMokepon()
+
+                if (enemyMokepon) {
+                  enemyMokepon.paintMokepon();
+                } else {
+                  console.error("enemyMokepon is null");
+                }
               }
             })
           })
