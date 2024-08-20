@@ -78,6 +78,7 @@ const maxMapWidth = 800;
 
 //Backend
 let playerId = null;
+let enemyId = null;
 
 //Array of mokepons
 let mokepons = [];
@@ -345,6 +346,7 @@ function selectPet() {
     selectedPet = inputJachibombo.id;
   } else {
     alert("You selected to be a loser 👎");
+    return 
   }
 
   extractAttacks(selectedPet);
@@ -360,7 +362,7 @@ function selectPet() {
 
 function joinGame() {
   //Function from backend to generate an id into the console.
-  fetch("http://localhost:8080/join").then(function (res) {
+  fetch("http://192.168.1.4:8080/join").then(function (res) {
     if (res.ok) {
       res.text().then(function (response) {
         console.log("Response received, updating playerId:", response);
@@ -378,7 +380,7 @@ function joinGame() {
 }
 
 function selectMokeponBackend(selectedPet) {
-  fetch(`http://localhost:8080/mokepon/${playerId}`, {
+  fetch(`http://192.168.1.4:8080/mokepon/${playerId}`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -467,7 +469,7 @@ function attackSequence() {
 }
 
 function sendAttacks(){
-  fetch(`http://localhost:8080/mokepon/${playerId}/attacks`, {
+  fetch(`http://192.168.1.4:8080/mokepon/${playerId}/attacks`, {
     method: "post",
     headers: {
       "Content-Type": "application/json"
@@ -476,6 +478,23 @@ function sendAttacks(){
       attacks: playerAttack
     })
   })
+
+  interval = setInterval(getAttacks, 50)
+}
+
+function getAttacks(){
+  fetch(`http://192.168.1.4:8080/mokepon/${enemyId}/attacks`)
+    .then(function(res){
+      if(res.ok){
+        res.json()
+            .then(function({attacks}){
+              if(attacks.length === 5){
+                playerAttack = attacks
+                initiateCombat()
+              }
+            })
+      }
+    })
 }
 
 function aleatorio(min, max) {
@@ -526,7 +545,7 @@ function paintCanva() {
 }
 
 function sendPosition(x, y) {
-  fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
+  fetch(`http://192.168.1.4:8080/mokepon/${playerId}/position`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -549,6 +568,7 @@ function sendPosition(x, y) {
                     "Firegod",
                     "./images/Firegod.jpg",
                     3,
+                    enemy.id,
                   );
                 } else if (mokeponName === "Thundercat"){
                   console.log("Enemy: " + enemy.mokepon)
@@ -556,6 +576,7 @@ function sendPosition(x, y) {
                     "Thundercat",
                     "./images/Thunder.png",
                     3,
+                    enemy.id,
                   );
                 } else if (mokeponName === "Watermelon"){
                   console.log("Enemy: " + enemy.mokepon)
@@ -563,6 +584,7 @@ function sendPosition(x, y) {
                     "Watermelon",
                     "./images/Watermelon.png",
                     3,
+                    enemy.id,
                   );
                 } else if (mokeponName === "Tucaferreti"){
                   console.log("Enemy: " + enemy.mokepon)
@@ -570,12 +592,14 @@ function sendPosition(x, y) {
                     "Tucaferreti",
                     "./images/Tucaferreti.webp",
                     3,
+                    enemy.id,
                   );
                 } else if (mokeponName === "Floraline"){
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon("Floraline",
                     "./images/flor.png",
                     3,
+                    enemy.id,
                   );
                 } else if (mokeponName === "Jachibombo"){
                   console.log("Enemy: " + enemy.mokepon)
@@ -583,6 +607,7 @@ function sendPosition(x, y) {
                     "Jachibombo",
                     "./images/Jachibombo.webp",
                     3,
+                    enemy.id,
                   );
                 } else {
                   console.log("This is the value of enemy because no other condition was met: " + enemyMokepon)
@@ -690,6 +715,7 @@ function initiateMap() {
   window.addEventListener("keyup", stopMovement);
 }
 
+/* 
 function selectEnemyAttack() {
   //Enemy selects attack
   let aleatoryAttack = aleatorio(0, enemyMokeponAttacks.length - 1);
@@ -721,6 +747,7 @@ function selectEnemyAttack() {
   }
   initiateCombat();
 }
+  */
 
 function initiateCombat() {
   if (playerAttack.length == 5) {
@@ -735,6 +762,8 @@ function indexBothOponents(player, enemy) {
 }
 
 function marcador() {
+  clearInterval(interval)
+
   for (let index = 0; index < 5; index++) {
     indexBothOponents(index, index);
     if (lastFriendlyAttack == lastEnemyAttack) {
@@ -909,6 +938,8 @@ function reviewCollisionMap(enemy) {
     return;
   }
   stopMovement();
+
+  enemyId = enemy.id //Adding the id from the class Mokepon
 
   //Show sections back
   sectionSelectAttack.style.display = "flex";
