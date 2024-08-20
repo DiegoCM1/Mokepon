@@ -62,8 +62,6 @@ app.post("/mokepon/:playerId/position", (req, res) => {
     const x = req.body.x || 0
     const y = req.body.y || 0
 
-    console.log(`Value on x: (${x}), Value on y: (${y})`);
-
     const playerIndex = players.findIndex((player) => playerId === player.id)
 
     if(playerIndex >= 0){

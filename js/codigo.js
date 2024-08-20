@@ -121,6 +121,8 @@ let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
 let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
 
+
+/*
 let evilFiregod = new Mokepon(
   "Firegod",
   "./images/Firegod.jpg",
@@ -157,56 +159,70 @@ let evilJachibombo = new Mokepon(
   150,
   250
 );
-
+*/
 //Adding new attacks to the property depending on the mokepon
-firegod.attacks.push(
+
+const firegodAttacks = [
   { name: "🔥", id: "button-fire" },
   { name: "🔥", id: "button-fire" },
   { name: "⚡", id: "button-electricity" },
   { name: "💧", id: "button-water" },
   { name: "🍃", id: "button-plantae" }
-);
+]
 
-thundercat.attacks.push(
+const thundercatAttacks = [
   { name: "⚡", id: "button-electricity" },
   { name: "⚡", id: "button-electricity" },
   { name: "🔥", id: "button-fire" },
   { name: "💨", id: "button-wind" },
   { name: "🌌", id: "button-plasma" }
-);
+]
 
-watermelon.attacks.push(
+const watermelonAttacks = [
   { name: "💧", id: "button-water" },
   { name: "💧", id: "button-water" },
   { name: "💨", id: "button-wind" },
   { name: "🔥", id: "button-fire" },
   { name: "🍃", id: "button-plantae" }
-);
+]
 
-tucaferreti.attacks.push(
+const tucaferretiAttacks = [
   { name: "💨", id: "button-wind" },
   { name: "💨", id: "button-wind" },
   { name: "💧", id: "button-water" },
   { name: "⚡", id: "button-electricity" },
   { name: "🌌", id: "button-plasma" }
-);
+]
 
-floraline.attacks.push(
+const floralineAttacks = [
   { name: "🍃", id: "button-plantae" },
   { name: "🍃", id: "button-plantae" },
   { name: "🌌", id: "button-plasma" },
   { name: "🔥", id: "button-fire" },
   { name: "💧", id: "button-water" }
-);
+]
 
-jachibombo.attacks.push(
+const jachibomboAttacks = [
   { name: "🌌", id: "button-plasma" },
   { name: "🌌", id: "button-plasma" },
   { name: "🍃", id: "button-plantae" },
   { name: "⚡", id: "button-electricity" },
   { name: "💨", id: "button-wind" }
-);
+]
 
+firegod.attacks.push(...firegodAttacks);
+
+thundercat.attacks.push(...thundercatAttacks);
+
+watermelon.attacks.push(...watermelonAttacks);
+
+tucaferreti.attacks.push(...tucaferretiAttacks);
+
+floraline.attacks.push(...floralineAttacks);
+
+jachibombo.attacks.push(...jachibomboAttacks);
+
+/*
 evilFiregod.attacks.push(
   { name: "🔥", id: "button-fire" },
   { name: "🔥", id: "button-fire" },
@@ -254,6 +270,7 @@ evilJachibombo.attacks.push(
   { name: "⚡", id: "button-electricity" },
   { name: "💨", id: "button-wind" }
 );
+*/
 
 //Adding mokepons to the array 'mokepons'
 mokepons.push(
@@ -480,14 +497,16 @@ function paintCanva() {
     extractedDrawMokepon.height
   ); //Draws your mokepon
   //Painting all evil mokepons trought the map
-  evilFiregod.paintMokepon();
+  /*evilFiregod.paintMokepon();
   evilFloraline.paintMokepon();
   evilWatermelon.paintMokepon();
   evilThundercat.paintMokepon();
   evilTucaferreti.paintMokepon();
-  evilJachibombo.paintMokepon();
+  evilJachibombo.paintMokepon();*/
   //Checks if there is a collision whenever extractedDrawMokepon has a speed different than 0
+  /*
   if (extractedDrawMokepon.speedX !== 0 || extractedDrawMokepon.speedY !== 0) {
+
     reviewCollisionMap(evilFiregod);
     reviewCollisionMap(evilFloraline);
     reviewCollisionMap(evilWatermelon);
@@ -496,7 +515,7 @@ function paintCanva() {
     reviewCollisionMap(evilJachibombo);
     stopOnBorderMap();
   }
-
+*/
   //Backend
   sendPosition(extractedDrawMokepon.x, extractedDrawMokepon.y);
 }
@@ -508,31 +527,60 @@ function sendPosition(x, y) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ x, y }),
-  });
-
-  console.log(`FRONTEND -- Value on x: (${x}), Value on y: (${y})`);
-
-  /*.then(function (res) {
-    if(res.ok){
+  })
+  .then(function (res){
+    if (res. ok){
       res.json()
-          .then(function ({ enemies }){
+          .then(function ({enemies}){
             console.log(enemies)
+            enemies.forEach(function(enemy){ //Change the created mokepon depending on what was selected
+              if (enemy.mokepon != undefined) { //Making sure the enemy is defined
+                let enemyMokepon = null //Setting a standard variable
+                const mokeponName = enemy.mokepon.name || ""
+                if (mokeponName === "Firegod"){
+                  enemyMokepon = new Mokepon(
+                    "Firegod",
+                    "./images/Firegod.jpg",
+                    3,
+                  );
+                } else if (mokeponName === "Thundercat"){
+                  enemyMokepon = new Mokepon(
+                    "Thundercat",
+                    "./images/Thunder.png",
+                    3,
+                  );
+                } else if (mokeponName === "Watermelon"){
+                  enemyMokepon = new Mokepon(
+                    "Watermelon",
+                    "./images/Watermelon.png",
+                    3,
+                  );
+                } else if (mokeponName === "Tucaferreti"){
+                  enemyMokepon = new Mokepon(
+                    "Tucaferreti",
+                    "./images/Tucaferreti.webp",
+                    3,
+                  );
+                } else if (mokeponName === "Floraline"){
+                  enemyMokepon = new Mokepon("Floraline",
+                    "./images/flor.png",
+                    3,
+                  );
+                } else if (mokeponName === "Jachibombo"){
+                  enemyMokepon = new Mokepon(
+                    "Jachibombo",
+                    "./images/Jachibombo.webp",
+                    3,
+                  );
+                }
+                console.log("This is the value of enemyMokepon: " + enemyMokepon)
+                enemyMokepon.paintMokepon()
+              }
+            })
           })
     }
   })
-      */
 }
-
-//Document
-/*
-function enviarPosicion(x, y) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
-    method: "post",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ x, y }),
-  });
-}
-  */
 
 function extractDrawOfPet() {
   for (let i = 0; i < mokepons.length; i++) {
