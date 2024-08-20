@@ -490,38 +490,23 @@ function paintCanva() {
   extractedDrawMokepon.y = extractedDrawMokepon.y + extractedDrawMokepon.speedY;
   canvas.clearRect(0, 0, map.width, map.height);
   canvas.drawImage(backgroundMap, 0, 0, map.width, map.height); //Draws the background of the map
-  canvas.drawImage(
+  canvas.drawImage( //Draws your mokepon
     extractedDrawMokepon.photoMap,
     extractedDrawMokepon.x,
     extractedDrawMokepon.y,
     extractedDrawMokepon.width,
     extractedDrawMokepon.height
-  ); //Draws your mokepon
-  //Painting all evil mokepons trought the map
-  /*evilFiregod.paintMokepon();
-  evilFloraline.paintMokepon();
-  evilWatermelon.paintMokepon();
-  evilThundercat.paintMokepon();
-  evilTucaferreti.paintMokepon();
-  evilJachibombo.paintMokepon();*/
-  //Checks if there is a collision whenever extractedDrawMokepon has a speed different than 0
-  /*
-  if (extractedDrawMokepon.speedX !== 0 || extractedDrawMokepon.speedY !== 0) {
+  )
+  //Set borders to the map
+  // stopOnBorderMap();
 
-    reviewCollisionMap(evilFiregod);
-    reviewCollisionMap(evilFloraline);
-    reviewCollisionMap(evilWatermelon);
-    reviewCollisionMap(evilThundercat);
-    reviewCollisionMap(evilTucaferreti);
-    reviewCollisionMap(evilJachibombo);
-    stopOnBorderMap();
-  }
-*/
-  //Backend
+
+  //Send position on x and y to the backend
   sendPosition(extractedDrawMokepon.x, extractedDrawMokepon.y);
 
   enemyMokepons.forEach(function(mokepon){
     mokepon.paintMokepon()
+    reviewCollisionMap(mokepon)
   })
 }
 
