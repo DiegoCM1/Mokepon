@@ -78,7 +78,7 @@ const maxMapWidth = 800;
 
 //Backend
 let playerId = null;
-let enemyId = null;
+let enemyId = null;4
 
 //Array of mokepons
 let mokepons = [];
@@ -124,46 +124,7 @@ let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
 
 
-/*
-let evilFiregod = new Mokepon(
-  "Firegod",
-  "./images/Firegod.jpg",
-  3,
-  260,
-  400
-);
-let evilThundercat = new Mokepon(
-  "Thundercat",
-  "./images/Thunder.png",
-  3,
-  150,
-  50
-);
-let evilWatermelon = new Mokepon(
-  "Watermelon",
-  "./images/Watermelon.png",
-  3,
-  50,
-  170
-);
-let evilTucaferreti = new Mokepon(
-  "Tucaferreti",
-  "./images/Tucaferreti.webp",
-  3,
-  50,
-  250
-);
-let evilFloraline = new Mokepon("Floraline", "./images/flor.png", 3, 250, 50);
-let evilJachibombo = new Mokepon(
-  "Jachibombo",
-  "./images/Jachibombo.webp",
-  3,
-  150,
-  250
-);
-*/
-//Adding new attacks to the property depending on the mokepon
-
+//Stablishing what type of mokepon will have what type of attacks
 const firegodAttacks = [
   { name: "🔥", id: "button-fire" },
   { name: "🔥", id: "button-fire" },
@@ -212,6 +173,7 @@ const jachibomboAttacks = [
   { name: "💨", id: "button-wind" }
 ]
 
+//Inserting available attacks so the player can select them
 firegod.attacks.push(...firegodAttacks);
 
 thundercat.attacks.push(...thundercatAttacks);
@@ -224,55 +186,6 @@ floraline.attacks.push(...floralineAttacks);
 
 jachibombo.attacks.push(...jachibomboAttacks);
 
-/*
-evilFiregod.attacks.push(
-  { name: "🔥", id: "button-fire" },
-  { name: "🔥", id: "button-fire" },
-  { name: "⚡", id: "button-electricity" },
-  { name: "💧", id: "button-water" },
-  { name: "🍃", id: "button-plantae" }
-);
-
-evilThundercat.attacks.push(
-  { name: "⚡", id: "button-electricity" },
-  { name: "⚡", id: "button-electricity" },
-  { name: "🔥", id: "button-fire" },
-  { name: "💨", id: "button-wind" },
-  { name: "🌌", id: "button-plasma" }
-);
-
-evilWatermelon.attacks.push(
-  { name: "💧", id: "button-water" },
-  { name: "💧", id: "button-water" },
-  { name: "💨", id: "button-wind" },
-  { name: "🔥", id: "button-fire" },
-  { name: "🍃", id: "button-plantae" }
-);
-
-evilTucaferreti.attacks.push(
-  { name: "💨", id: "button-wind" },
-  { name: "💨", id: "button-wind" },
-  { name: "💧", id: "button-water" },
-  { name: "⚡", id: "button-electricity" },
-  { name: "🌌", id: "button-plasma" }
-);
-
-evilFloraline.attacks.push(
-  { name: "🍃", id: "button-plantae" },
-  { name: "🍃", id: "button-plantae" },
-  { name: "🌌", id: "button-plasma" },
-  { name: "🔥", id: "button-fire" },
-  { name: "💧", id: "button-water" }
-);
-
-evilJachibombo.attacks.push(
-  { name: "🌌", id: "button-plasma" },
-  { name: "🌌", id: "button-plasma" },
-  { name: "🍃", id: "button-plantae" },
-  { name: "⚡", id: "button-electricity" },
-  { name: "💨", id: "button-wind" }
-);
-*/
 
 //Adding mokepons to the array 'mokepons'
 mokepons.push(
@@ -284,7 +197,6 @@ mokepons.push(
   jachibombo
 );
 
-//Functions
 function initiateGame() {
   //Hiding sections in HTML
   sectionSeeMap.style.display = "none";
@@ -293,7 +205,7 @@ function initiateGame() {
   sectionRestart.style.display = "none";
   sectionSelectAttack.style.display = "none";
 
-  //Array of mokepons
+  //Dynamic creation of mokepon cards to select
   mokepons.forEach((mokepon) => {
     mokeponsOption = `
     <div class="container-images">
@@ -304,7 +216,8 @@ function initiateGame() {
     </label>
     </div>
     `;
-    petCardsContainer.innerHTML += mokeponsOption;
+
+    petCardsContainer.innerHTML += mokeponsOption; //Inserting dynamicall mokepons into the html
 
     inputFiregod = document.getElementById("Firegod");
     inputWatermelon = document.getElementById("Watermelon");
@@ -314,12 +227,13 @@ function initiateGame() {
     inputJachibombo = document.getElementById("Jachibombo");
   });
 
-  //Select our pet and enemy pet
+  //Select pet function
   buttonPet.addEventListener("click", selectPet);
+  //Restart button at the end of the game
   buttonRestart.addEventListener("click", restartGame);
 }
 
-function selectPet() {
+function selectPet() { //Function that allows player to select a pet
   if (inputFiregod.checked) {
     friendPet.innerHTML = inputFiregod.id;
     selectedCharacterImage.src = "./images/Firegod.jpg";
@@ -349,15 +263,17 @@ function selectPet() {
     return 
   }
 
-  extractAttacks(selectedPet);
+  extractAttacks(selectedPet); //Function that extracts attacks of the pet you selected
 
-  //Showing and hiding sections
+  //Showing sections
   sectionSeeMap.style.display = "flex";
+
+  //Hiding sections
   sectionSelectPet.style.display = "none";
   sectionTitle.style.display = "none";
 
-  initiateMap();
-  joinGame();
+  initiateMap(); //Map starts
+  joinGame(); //Creation of id and join to the sercer
 }
 
 function joinGame() {
@@ -375,8 +291,6 @@ function joinGame() {
       });
     }
   });
-  /* .then(() => {
-    });*/
 }
 
 function selectMokeponBackend(selectedPet) {
@@ -391,7 +305,7 @@ function selectMokeponBackend(selectedPet) {
   });
 }
 
-function extractAttacks(selectedPet) {
+function extractAttacks(selectedPet) { //Function to extract attacks depending on the pet you selected
   for (let i = 0; i < mokepons.length; i++) {
     if (selectedPet === mokepons[i].name) {
       attacks = mokepons[i].attacks;
@@ -420,7 +334,7 @@ function showAttacks(attacks) {
   attackButtons = document.querySelectorAll(".attackB");
 }
 
-function attackSequence() {
+function attackSequence() {//Function to add your attacks into the array of attacks
   attackButtons.forEach((attackButton) => {
     attackButton.addEventListener("click", (e) => {
       if (e.target.textContent === "🔥") {
@@ -460,15 +374,15 @@ function attackSequence() {
         attackButton.style.background = "rgb(70, 0, 0)";
         attackButton.disabled = true;
       }
-      /*selectEnemyAttack();*/
-      if(playerAttack.length === 5){
+
+      if(playerAttack.length === 5){//Conditional to only proceed with the game once player selected all attacks
         sendAttacks()
       }
     });
   });
 }
 
-function sendAttacks(){
+function sendAttacks(){//Sends the array of selected attacks to the backend
   fetch(`http://192.168.1.4:8080/mokepon/${playerId}/attacks`, {
     method: "post",
     headers: {
@@ -482,7 +396,7 @@ function sendAttacks(){
   interval = setInterval(getAttacks, 50)
 }
 
-function getAttacks(){
+function getAttacks(){//Receives the attacks in the backend
   fetch(`http://192.168.1.4:8080/mokepon/${enemyId}/attacks`)
     .then(function(res){
       if(res.ok){
@@ -490,39 +404,28 @@ function getAttacks(){
             .then(function({attacks}){
               if(attacks.length === 5){
                 playerAttack = attacks
-                initiateCombat()
+                initiateCombat()//Starts the comparation of attacks between players
               }
             })
       }
     })
 }
 
-function aleatorio(min, max) {
+function aleatorio(min, max) { //Function that returns a number between two parameters
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function selectEnemyPet(colissionedEnemy) {
-  //Enemy selects pet
-  //let aleatorySelection = aleatorio(mokepons.length -1, 0);
-  //Inserting name, image and attacks of mokepons
-  //enemyPet.innerHTML = mokepons[aleatorySelection].name
-  //selectedEnemyCharacterImage.src = mokepons[aleatorySelection].photo
-  //enemyMokeponAttacks = mokepons[aleatorySelection].attacks
-
-  //Enemy selects pet
-  //let aleatorySelection = aleatorio(mokepons.length -1, 0);
-  //Inserting name, image and attacks of mokepons
+function selectEnemyPet(colissionedEnemy) {//Shows the enemy pet on map
   enemyPet.innerHTML = colissionedEnemy.name;
   selectedEnemyCharacterImage.src = colissionedEnemy.photo;
   enemyMokeponAttacks = colissionedEnemy.attacks;
-  //Calling function
-  attackSequence();
+  attackSequence();//Starts the addition of attacks to the array
 }
 
-function paintCanva() {
+function paintCanva() { //Paints the map in general
   extractedDrawMokepon.x = extractedDrawMokepon.x + extractedDrawMokepon.speedX;
   extractedDrawMokepon.y = extractedDrawMokepon.y + extractedDrawMokepon.speedY;
-  canvas.clearRect(0, 0, map.width, map.height);
+  canvas.clearRect(0, 0, map.width, map.height); 
   canvas.drawImage(backgroundMap, 0, 0, map.width, map.height); //Draws the background of the map
   canvas.drawImage( //Draws your mokepon
     extractedDrawMokepon.photoMap,
@@ -531,20 +434,17 @@ function paintCanva() {
     extractedDrawMokepon.width,
     extractedDrawMokepon.height
   )
-  //Set borders to the map
-  // stopOnBorderMap();
-
 
   //Send position on x and y to the backend
   sendPosition(extractedDrawMokepon.x, extractedDrawMokepon.y);
 
-  enemyMokepons.forEach(function(mokepon){
+  enemyMokepons.forEach(function(mokepon){ //Paints every selected mokepon on the map
     mokepon.paintMokepon()
-    reviewCollisionMap(mokepon)
+    reviewCollisionMap(mokepon)//Reviews you haven't crashed another mokepon
   })
 }
 
-function sendPosition(x, y) {
+function sendPosition(x, y) {//Sends your position on the map to the backend
   fetch(`http://192.168.1.4:8080/mokepon/${playerId}/position`, {
     method: "post",
     headers: {
@@ -617,13 +517,6 @@ function sendPosition(x, y) {
                 enemyMokepon.x = enemy.x
                 enemyMokepon.y = enemy.y
 
-                /*
-                if (enemyMokepon) { //Paints enemy mokepon on the canva
-                  enemyMokepon.paintMokepon();
-                } else {
-                  console.error("enemyMokepon is null or undefined");
-                }
-                */
                 return enemyMokepon
               }
             })
@@ -632,7 +525,7 @@ function sendPosition(x, y) {
   })
 }
 
-function extractDrawOfPet() {
+function extractDrawOfPet() {//Extracts the draw of the selected mokepon
   for (let i = 0; i < mokepons.length; i++) {
     if (selectedPet === mokepons[i].name) {
       return mokepons[i];
@@ -640,7 +533,7 @@ function extractDrawOfPet() {
   }
 }
 
-function extractDrawOfBackgroundMap() {
+function extractDrawOfBackgroundMap() {//Extracts the map depending on the pet you selected
   if (selectedPet == "Firegod") {
     backgroundMap.src = "../images/mokemap.avif";
   } else if (selectedPet == "Watermelon") {
@@ -680,7 +573,7 @@ function stopMovement() {
   clearInterval(interval);
 }
 
-function movePetWithKeyboard(event) {
+function movePetWithKeyboard(event) {//Allows to move pet with keyboard
   console.log(event.key);
   switch (event.key) {
     case "ArrowUp":
@@ -704,64 +597,28 @@ function movePetWithKeyboard(event) {
   }
 }
 
-function initiateMap() {
-  extractedDrawMokepon = extractDrawOfPet(selectedPet);
-  extractedDrawBackgroundMap = extractDrawOfBackgroundMap(selectedPet);
-  setSizeMap();
-  //map.width = vwToPx(90); // 90vw converted to pixels
-  //map.height = vhToPx(75); // 240vh converted to pixels
-  interval = setInterval(paintCanva, 50);
-  window.addEventListener("keydown", movePetWithKeyboard);
-  window.addEventListener("keyup", stopMovement);
+function initiateMap() {//Calls the functions that extract necessary pictures and paint the map
+  extractedDrawMokepon = extractDrawOfPet(selectedPet);//Extracts the draw of mokepon
+  extractedDrawBackgroundMap = extractDrawOfBackgroundMap(selectedPet); //Extracts draw of map depending on selected pet
+  setSizeMap(); //Sets the size of the map
+  interval = setInterval(paintCanva, 50); //Gives an smooth look to the movement of pet
+  window.addEventListener("keydown", movePetWithKeyboard);//Listens to when you touch any key
+  window.addEventListener("keyup", stopMovement); //Listens to when you stop touching any key
 }
 
-/* 
-function selectEnemyAttack() {
-  //Enemy selects attack
-  let aleatoryAttack = aleatorio(0, enemyMokeponAttacks.length - 1);
-
-  if (aleatoryAttack === 0) {
-    selectedEnemyAttack = "🔥";
-    enemyAttack.push("FIRE");
-    console.log(enemyAttack);
-  } else if (aleatoryAttack === 1) {
-    selectedEnemyAttack = "💧";
-    enemyAttack.push("WATER");
-    console.log(enemyAttack);
-  } else if (aleatoryAttack === 2) {
-    selectedEnemyAttack = "🍃";
-    enemyAttack.push("PLANTAE");
-    console.log(enemyAttack);
-  } else if (aleatoryAttack === 3) {
-    selectedEnemyAttack = "⚡";
-    enemyAttack.push("ELECTRICITY");
-    console.log(enemyAttack);
-  } else if (aleatoryAttack === 4) {
-    selectedEnemyAttack = "💨";
-    enemyAttack.push("WIND");
-    console.log(enemyAttack);
-  } else if (aleatoryAttack === 5) {
-    selectedEnemyAttack = "🌌";
-    enemyAttack.push("PLASMA");
-    console.log(enemyAttack);
-  }
-  initiateCombat();
-}
-  */
-
-function initiateCombat() {
+function initiateCombat() { //Makes sure the array of attacks is full before proceeding to compare
   if (playerAttack.length == 5) {
     marcador();
     addMessage();
   }
 }
 
-function indexBothOponents(player, enemy) {
+function indexBothOponents(player, enemy) {//Compares last attacks of friend and enemy pet
   lastFriendlyAttack = playerAttack[player];
   lastEnemyAttack = enemyAttack[enemy];
 }
 
-function marcador() {
+function marcador() { //Decides who wins depending on the selected attack
   clearInterval(interval)
 
   for (let index = 0; index < 5; index++) {
@@ -797,43 +654,7 @@ function marcador() {
     }
   }
 
-  /*
-  if (lastEnemyAttack == lastFriendlyAttack) {
-    result = "You draw ⚔️";
-  } else if (
-    (playerAttack == "FIRE" && enemyAttack == "PLANTAE") ||
-    (playerAttack == "FIRE" && enemyAttack == "PLASMA") ||
-    (playerAttack == "ELECTRICITY" && enemyAttack == "PLANTAE") ||
-    (playerAttack == "ELECTRICITY" && enemyAttack == "PLASMA") ||
-    (playerAttack == "PLANTAE" && enemyAttack == "WATER") ||
-    (playerAttack == "PLANTAE" && enemyAttack == "WIND") ||
-    (playerAttack == "PLASMA" && enemyAttack == "WATER") ||
-    (playerAttack == "PLASMA" && enemyAttack == "WIND") ||
-    (playerAttack == "WATER" && enemyAttack == "FIRE") ||
-    (playerAttack == "WATER" && enemyAttack == "ELECTRICITY") ||
-    (playerAttack == "WIND" && enemyAttack == "FIRE") ||
-    (playerAttack == "WIND" && enemyAttack == "ELECTRICITY")
-  ) {
-    result = "You win🏆";
-    enemyVictories--;
-    spanenemyVictories.innerHTML = enemyVictories;
-  } else if (
-    (playerAttack == "FIRE" && enemyAttack == "ELECTRICITY") ||
-    (playerAttack == "ELECTRICITY" && enemyAttack == "FIRE") ||
-    (playerAttack == "PLANTAE" && enemyAttack == "PLASMA") ||
-    (playerAttack == "PLASMA" && enemyAttack == "PLANTAE") ||
-    (playerAttack == "WATER" && enemyAttack == "WIND") ||
-    (playerAttack == "WIND" && enemyAttack == "WATER")
-  ) {
-    result = "You draw ⚔️";
-  } else {
-    result = "You lose👎";
-    friendVictories--;
-    spanfriendVictories.innerHTML = friendVictories;
-  }
-    */
-
-  if (friendVictories == 5) {
+  if (friendVictories == 5) { //Defines how many victories friend got
     spanfriendVictories.innerHTML = "👑👑👑👑👑";
   } else if (friendVictories == 4) {
     spanfriendVictories.innerHTML = "👑👑👑👑⭕";
@@ -847,7 +668,7 @@ function marcador() {
     spanfriendVictories.innerHTML = "⭕⭕⭕⭕⭕";
   }
 
-  if (enemyVictories == 5) {
+  if (enemyVictories == 5) { //Defines how many victories the enemy got
     spanenemyVictories.innerHTML = "👑👑👑👑👑";
   } else if (enemyVictories == 4) {
     spanenemyVictories.innerHTML = "👑👑👑👑⭕";
@@ -863,9 +684,6 @@ function marcador() {
 }
 
 function addMessage() {
-  // Clear previous messages
-  /*playerAttackDiv.innerHTML = '';
-  enemyAttackDiv.innerHTML = '';*/
   //Show historial of attacks
   let newPlayerAttack = document.createElement("p");
   let newEnemyAttack = document.createElement("p");
@@ -876,30 +694,8 @@ function addMessage() {
   playerAttackDiv.appendChild(newPlayerAttack);
   enemyAttackDiv.appendChild(newEnemyAttack);
 
-  /*
-  if (enemyVictories == 0) {
-    //Message of victory
-    messagesSection.innerHTML = "Select the order of your attacks";
-    //Disabling enemy attacks
-    inputFiregod.disabled = true;
-    inputWatermelon.disabled = true;
-    inputFloraline.disabled = true;
-    inputThundercat.disabled = true;
-    inputTucaferreti.disabled = true;
-    inputJachibombo.disabled = true;
-    //Disabling attack buttons
-    buttonFire.disabled = true;
-    buttonWater.disabled = true;
-    buttonPlantae.disabled = true;
-    buttonElectricity.disabled = true;
-    buttonWind.disabled = true;
-    buttonPlasma.disabled = true;
-    //Show section to restart game
-    sectionRestart.style.display = "flex";
-  } else */
-  if (friendVictories > enemyVictories && friendVictories == 5) {
-    //Message of perfect victory
-    messagesSection.innerHTML = "FLAWLESS VICTORY";
+  if (friendVictories > enemyVictories && friendVictories == 5) {//Defines who wins the whole battle
+    messagesSection.innerHTML = "FLAWLESS VICTORY";     //Message of perfect victory
   } else if (friendVictories > enemyVictories && friendVictories >= 3) {
     messagesSection.innerHTML = "Amazing victory";
   } else if (friendVictories > enemyVictories) {
@@ -909,15 +705,15 @@ function addMessage() {
   } else {
     messagesSection.innerHTML = "You lost";
   }
-  //Show section to restart game
+  //Shows section to restart game
   sectionRestart.style.display = "flex";
 }
 
-function restartGame() {
+function restartGame() { //Function that restarts game
   location.reload();
 }
 
-function reviewCollisionMap(enemy) {
+function reviewCollisionMap(enemy) {//Checks if you crashed with an enemy pet on the map/canva
   //Sides of the enemy's pet
   const upsideEnemy = enemy.y;
   const downsideEnemy = enemy.y + enemy.height;
@@ -937,7 +733,7 @@ function reviewCollisionMap(enemy) {
   ) {
     return;
   }
-  stopMovement();
+  stopMovement(); //Stops movement whenever you crash
 
   enemyId = enemy.id //Adding the id from the class Mokepon
 
@@ -954,7 +750,7 @@ function reviewCollisionMap(enemy) {
   selectEnemyPet(enemy);
 }
 
-function setSizeMap() {
+function setSizeMap() { //Sets the size of the map
   if (widthMap > maxMapWidth) {
     widthMap = maxMapWidth - 20;
   }
@@ -962,7 +758,7 @@ function setSizeMap() {
   map.height = vhToPx(70);
 }
 
-function stopOnBorderMap() {
+function stopOnBorderMap() {//Stops player from going out of the map
   // Border of the map
   const upsideMap = 0;
   const downsideMap = map.height;
