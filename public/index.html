@@ -22,23 +22,23 @@
     </header>
 
     <main>
-        <section id="select-pet" class="section-container">
+        <section id="select-pet" class="section-container"> <!--Section to select pets-->
             <h2 class="container-subtitles animate__animated animate__bounceInRightr">Pick your mokepon</h2>
-            <div class="pet-cards-container" id="pet-cards-container">
 
+            <div class="pet-cards-container" id="pet-cards-container"> <!--Show all pets-->
             </div>
 
-            <div class="container-button animate__animated animate__bounceInDown">
+            <div class="container-button animate__animated animate__bounceInDown"> <!--Continue button-->
                 <button id="button-pet" class="button-select-mokepon concert-one-regular">Continue</button>
             </div>
         </section>
 
-        <section id="see-map">
+        <section id="see-map"> <!--Section to create map-->
             <h3 class="container-subtitles animate__animated animate__bounceInRightr">Walk trough the map with your mokepon</h3>
             <canvas id="map"></canvas>
             <div class="movement-buttons-container">
                 <button onmouseup="stopMovement()" onmousedown="movePetUp()" ontouchstart="movePetUp()" ontouchend="stopMovement()" class="buttonsMovement concert-one-regular">Up</button>
-                <div class="movement-buttons-container-2">
+                <div class="movement-buttons-container-2"> <!--Buttons to move pet-->
                     <button onmouseup="stopMovement()" onmousedown="movePetLeft()" ontouchstart="movePetLeft()" ontouchend="stopMovement()" class="buttonsMovement concert-one-regular">Left</button>
                     <button onmouseup="stopMovement()" onmousedown="movePetDown()" ontouchstart="movePetDown()" ontouchend="stopMovement()" class="buttonsMovement concert-one-regular">Down</button>
                     <button onmouseup="stopMovement()" onmousedown="movePetRight()" ontouchstart="movePetRight()" ontouchend="stopMovement()" class="buttonsMovement concert-one-regular">Rigth</button>
@@ -47,9 +47,9 @@
         </section>
 
 
-        <section id="select-attack">
+        <section id="select-attack"> <!--Section to select attacks-->
             <h2 class="container-subtitles animate__animated animate__bounceInRight">Select your attacks</h2>
-            <div class="restart-container">
+            <div class="restart-container"> <!--Message and restart buttons div-->
                 <div id="messages" class="container-subtitles animate__animated animate__bounceInRight">
                     <p id="result-of-fight">Good luck!</p>
 
@@ -59,36 +59,35 @@
                 </div>
             </div>
 
-            <div id="check-life" class="combat-representation-container">
-                <div class="combat-representation">
-                    <p id="friend-victories">⭕⭕⭕⭕⭕</p>
-                    <div class="combat-representation-image-container">
+            <div id="check-life" class="combat-representation-container"><!--Combat container-->
+                <div class="combat-representation"> <!--Friend pet card-->
+                    <p id="friend-victories">⭕⭕⭕⭕⭕</p> <!--Life counter-->
+                    <div class="combat-representation-image-container"><!--Friend image-->
                         <img src="./images/Firegod.jpg" alt="Image of your pet" class="combat-representation-image" id="selected-character-image">
                     </div>
-                    <p id="friend-pet">Your pet</p>
-
+                    <p id="friend-pet">Your pet</p> <!--Friend pet's name-->
                 </div>
 
-                <p class="combat-vs">
-                    VS
+                <p class="combat-vs"> 
+                    VS <!--Visual representation of VS-->
                 </p>
 
-                <div class="combat-representation">
-                    <p id="enemy-victories">⭕⭕⭕⭕⭕</p>
-                    <div class="combat-representation-image-container">
+                <div class="combat-representation"> <!--Enemy pet cards-->
+                    <p id="enemy-victories">⭕⭕⭕⭕⭕</p><!--Life counter-->
+                    <div class="combat-representation-image-container"> <!--Enemy image-->
                         <img src="./images/Jachibombo.webp" alt="Image of enemys pet" class="combat-representation-image" id="selected-enemy-character-image">
                     </div>
-                    <p id="enemy-pet">Enemy pet</p>
+                    <p id="enemy-pet">Enemy pet</p> <!--Enemy pet's name-->
                 </div>
             </div>
 
-            <div class="combat-attacks-historial">
+            <div class="combat-attacks-historial"> <!--Section to show last attacks-->
                 <div id="player-Attack-div"></div>
                 <div id="enemy-Attack-div"></div>
             </div>
 
             <div class="container-buttons-attack" id="container-buttons-attack">
-                
+                <!--Buttons to select attacks-->
             </div>
 
             
