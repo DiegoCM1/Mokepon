@@ -497,7 +497,7 @@ function sendPosition(x, y) {//Sends your position on the map to the backend
                 } else if (mokeponName === "Floraline"){
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon("Floraline",
-                    "./public/images/flor.png",
+                    "./public/images/Floraline.png",
                     3,
                     enemy.id,
                   );
