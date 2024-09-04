@@ -120,7 +120,7 @@ let firegod = new Mokepon("Firegod", "./public/images/Firegod.jpg", 3);
 let thundercat = new Mokepon("Thundercat", "./public/images/Thunder.png", 3);
 let watermelon = new Mokepon("Watermelon", "./public/images/Watermelon.png", 3);
 let tucaferreti = new Mokepon("Tucaferreti", "./public/images/Tucaferreti.webp", 3);
-let floraline = new Mokepon("Floraline", "./public/images/flor.png", 3);
+let floraline = new Mokepon("Floraline", "./public/images/Flor.png", 3);
 let jachibombo = new Mokepon("Jachibombo", "./public/images/Jachibombo.webp", 3);
 
 
