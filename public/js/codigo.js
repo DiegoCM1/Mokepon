@@ -116,12 +116,12 @@ class Mokepon {
 }
 
 //Creating objects using the class
-let firegod = new Mokepon("Firegod", "./images/Firegod.jpg", 3);
-let thundercat = new Mokepon("Thundercat", "./images/Thunder.png", 3);
-let watermelon = new Mokepon("Watermelon", "./images/Watermelon.png", 3);
-let tucaferreti = new Mokepon("Tucaferreti", "./images/Tucaferreti.webp", 3);
-let floraline = new Mokepon("Floraline", "./images/flor.png", 3);
-let jachibombo = new Mokepon("Jachibombo", "./images/Jachibombo.webp", 3);
+let firegod = new Mokepon("Firegod", "./public/images/Firegod.jpg", 3);
+let thundercat = new Mokepon("Thundercat", "./public/images/Thunder.png", 3);
+let watermelon = new Mokepon("Watermelon", "./public/images/Watermelon.png", 3);
+let tucaferreti = new Mokepon("Tucaferreti", "./public/images/Tucaferreti.webp", 3);
+let floraline = new Mokepon("Floraline", "./public/images/flor.png", 3);
+let jachibombo = new Mokepon("Jachibombo", "./public/images/Jachibombo.webp", 3);
 
 
 //Stablishing what type of mokepon will have what type of attacks
@@ -236,27 +236,27 @@ function initiateGame() {
 function selectPet() { //Function that allows player to select a pet
   if (inputFiregod.checked) {
     friendPet.innerHTML = inputFiregod.id;
-    selectedCharacterImage.src = "./images/Firegod.jpg";
+    selectedCharacterImage.src = "./public/images/Firegod.jpg";
     selectedPet = inputFiregod.id;
   } else if (inputWatermelon.checked) {
     friendPet.innerHTML = inputWatermelon.id;
-    selectedCharacterImage.src = "./images/Watermelon.png";
+    selectedCharacterImage.src = "./public/images/Watermelon.png";
     selectedPet = inputWatermelon.id;
   } else if (inputFloraline.checked) {
     friendPet.innerHTML = inputFloraline.id;
-    selectedCharacterImage.src = "./images/Flor.png";
+    selectedCharacterImage.src = "./public/images/Flor.png";
     selectedPet = inputFloraline.id;
   } else if (inputThundercat.checked) {
     friendPet.innerHTML = inputThundercat.id;
-    selectedCharacterImage.src = "./images/Thunder.png";
+    selectedCharacterImage.src = "./public/images/Thunder.png";
     selectedPet = inputThundercat.id;
   } else if (inputTucaferreti.checked) {
     friendPet.innerHTML = inputTucaferreti.id;
-    selectedCharacterImage.src = "./images/Tucaferreti.webp";
+    selectedCharacterImage.src = "./public/images/Tucaferreti.webp";
     selectedPet = inputTucaferreti.id;
   } else if (inputJachibombo.checked) {
     friendPet.innerHTML = inputJachibombo.id;
-    selectedCharacterImage.src = "./images/Jachibombo.webp";
+    selectedCharacterImage.src = "./public/images/Jachibombo.webp";
     selectedPet = inputJachibombo.id;
   } else {
     alert("You selected to be a loser 👎");
@@ -466,7 +466,7 @@ function sendPosition(x, y) {//Sends your position on the map to the backend
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Firegod",
-                    "./images/Firegod.jpg",
+                    "./public/images/Firegod.jpg",
                     3,
                     enemy.id,
                   );
@@ -474,7 +474,7 @@ function sendPosition(x, y) {//Sends your position on the map to the backend
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Thundercat",
-                    "./images/Thunder.png",
+                    "./public/images/Thunder.png",
                     3,
                     enemy.id,
                   );
@@ -482,7 +482,7 @@ function sendPosition(x, y) {//Sends your position on the map to the backend
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Watermelon",
-                    "./images/Watermelon.png",
+                    "./public/images/Watermelon.png",
                     3,
                     enemy.id,
                   );
@@ -490,14 +490,14 @@ function sendPosition(x, y) {//Sends your position on the map to the backend
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Tucaferreti",
-                    "./images/Tucaferreti.webp",
+                    "./public/images/Tucaferreti.webp",
                     3,
                     enemy.id,
                   );
                 } else if (mokeponName === "Floraline"){
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon("Floraline",
-                    "./images/flor.png",
+                    "./public/images/flor.png",
                     3,
                     enemy.id,
                   );
@@ -505,7 +505,7 @@ function sendPosition(x, y) {//Sends your position on the map to the backend
                   console.log("Enemy: " + enemy.mokepon)
                   enemyMokepon = new Mokepon(
                     "Jachibombo",
-                    "./images/Jachibombo.webp",
+                    "./public/images/Jachibombo.webp",
                     3,
                     enemy.id,
                   );
@@ -535,17 +535,17 @@ function extractDrawOfPet() {//Extracts the draw of the selected mokepon
 
 function extractDrawOfBackgroundMap() {//Extracts the map depending on the pet you selected
   if (selectedPet == "Firegod") {
-    backgroundMap.src = "../images/mokemap.avif";
+    backgroundMap.src = "../public/images/mokemap.avif";
   } else if (selectedPet == "Watermelon") {
-    backgroundMap.src = "../images/backgroundImgWater2.webp";
+    backgroundMap.src = "../public/images/backgroundImgWater2.webp";
   } else if (selectedPet == "Floraline") {
-    backgroundMap.src = "../images/backgroundImgPlantae.webp";
+    backgroundMap.src = "../public/images/backgroundImgPlantae.webp";
   } else if (selectedPet == "Thundercat") {
-    backgroundMap.src = "../images/backgroundImgElectricity.webp";
+    backgroundMap.src = "../public/images/backgroundImgElectricity.webp";
   } else if (selectedPet == "Tucaferreti") {
-    backgroundMap.src = "../images/backgroundImgAir.webp";
+    backgroundMap.src = "../public/images/backgroundImgAir.webp";
   } else if (selectedPet == "Jachibombo") {
-    backgroundMap.src = "../images/backgroundImgPlasma.avif";
+    backgroundMap.src = "../public/images/backgroundImgPlasma.avif";
   }
   return backgroundMap.src;
 }
